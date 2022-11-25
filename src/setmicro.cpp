@@ -18,13 +18,12 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+// Arduino general settings
+
 #include <Arduino.h>
 #include <setmicro.h>
 
-void setup() {
-    setLed();
-}
-
-void loop() {
-// write your code here
-}
+void setLed(){
+    // disable TXLED and RXLED (TXLED is always on if the USB is tranmitting data)
+    DDRD &= ~(1<<5);
+} 

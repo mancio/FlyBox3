@@ -18,13 +18,12 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <Arduino.h>
-#include <setmicro.h>
+#ifndef FLYBOX3_SETMICRO_H
+#define FLYBOX3_SETMICRO_H
 
-void setup() {
-    setLed();
-}
+/**
+ * turn on and off Arduino build in leds
+ */
+void setLed();
 
-void loop() {
-// write your code here
-}
+#endif //FLYBOX3_SETMICRO_H

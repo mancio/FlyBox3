@@ -18,13 +18,32 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <Arduino.h>
-#include <setmicro.h>
+//
 
-void setup() {
-    setLed();
-}
+#ifndef FLYBOX3_PINS_H
+#define FLYBOX3_PINS_H
 
-void loop() {
-// write your code here
-}
+// slide potentiometer
+#define POT A0 // OTB sl pot
+
+// joystick
+#define BT_JOY A1 // push button
+#define H_JOY A2 // horizontal movement
+#define V_JOY A3 // vertical movement
+
+// multiplexer one
+#define SO_M1 5
+#define S1_M1 6
+#define S2_M1 7
+#define S3_M1 8
+#define SIG_M1 9
+
+// multiplexer two
+#define SO_M2 0
+#define S1_M2 1
+#define S2_M2 2
+#define S3_M2 3
+#define SIG_M2 4
+
+
+#endif //FLYBOX3_PINS_H
