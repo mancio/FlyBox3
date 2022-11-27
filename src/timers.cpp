@@ -18,26 +18,14 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef FLYBOX3_PINS_H
-#define FLYBOX3_PINS_H
+#include <Arduino.h>
+#include <timers.h>
 
-#define POT A0 /*!< slide potentiometer pin */
+void Timers::update(){
+    last = millis();
+}
 
-#define BT_JOY A1 /*!< push button pin */
-#define H_JOY A2 /*!< joystick horizontal movement */
-#define V_JOY A3 /*!< joystick vertical movement */
-
-#define SO_M1 5 /*!< first multiplexer S0 pin */
-#define S1_M1 6 /*!< first multiplexer S1 pin */
-#define S2_M1 7 /*!< first multiplexer S2 pin */
-#define S3_M1 8 /*!< first multiplexer S8 pin */
-#define SIG_M1 9 /*!< first multiplexer SIG pin */
-
-#define SO_M2 0 /*!< second multiplexer S0 pin */
-#define S1_M2 1 /*!< second multiplexer S1 pin */
-#define S2_M2 2 /*!< second multiplexer S2 pin */
-#define S3_M2 3 /*!< second multiplexer S3 pin */
-#define SIG_M2 4 /*!< second multiplexer SIG pin */
-
-
-#endif //FLYBOX3_PINS_H
+bool Timers::expired(unsigned long t){
+    if(millis()-last>t) return true;
+    else return false;
+}

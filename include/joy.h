@@ -18,26 +18,22 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef FLYBOX3_PINS_H
-#define FLYBOX3_PINS_H
+#ifndef FLYBOX3_JOY_H
+#define FLYBOX3_JOY_H
 
-#define POT A0 /*!< slide potentiometer pin */
+/**
+ * class to control all joystick HID operation
+ */
+class Joy {
+    public:
+        /**
+         * function to initialize the HID joystick
+         *
+         * @param type zero for a left hand pad with axis X,Y,Z,
+         * throttle axis and 33 buttons
+         *
+         */
+        void init(int type);
+};
 
-#define BT_JOY A1 /*!< push button pin */
-#define H_JOY A2 /*!< joystick horizontal movement */
-#define V_JOY A3 /*!< joystick vertical movement */
-
-#define SO_M1 5 /*!< first multiplexer S0 pin */
-#define S1_M1 6 /*!< first multiplexer S1 pin */
-#define S2_M1 7 /*!< first multiplexer S2 pin */
-#define S3_M1 8 /*!< first multiplexer S8 pin */
-#define SIG_M1 9 /*!< first multiplexer SIG pin */
-
-#define SO_M2 0 /*!< second multiplexer S0 pin */
-#define S1_M2 1 /*!< second multiplexer S1 pin */
-#define S2_M2 2 /*!< second multiplexer S2 pin */
-#define S3_M2 3 /*!< second multiplexer S3 pin */
-#define SIG_M2 4 /*!< second multiplexer SIG pin */
-
-
-#endif //FLYBOX3_PINS_H
+#endif //FLYBOX3_JOY_H
