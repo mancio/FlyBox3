@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define FLYBOX3_TIMERS_H
 
 /**
- * class to define all timers activity
+ * define all timers activity
  */
 class Timers {
     private:

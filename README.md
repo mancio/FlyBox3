@@ -24,3 +24,9 @@ Documentation generated using [Doxygen](https://doxygen.nl).
 
 [Here](https://github.com/mancio/FlyBox3/blob/main/doc/html/index.html) you can find the FlyBox3 doc in html.
 
+## How to import libraries
+
+If you are using CLion:
+* go to ``Tools -> PlatformIO -> Home`` 
+* add library to project 
+* in the code click the class name to add ``#include`` automatically

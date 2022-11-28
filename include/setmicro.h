@@ -21,6 +21,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #ifndef FLYBOX3_SETMICRO_H
 #define FLYBOX3_SETMICRO_H
 
-void setLed(); /*!< turn off Arduino build in leds */
+#define POT A0 /*!< slide potentiometer pin */
+
+#define BT_JOY A1 /*!< push button pin */
+#define H_JOY A2 /*!< joystick horizontal movement */
+#define V_JOY A3 /*!< joystick vertical movement */
+
+#define S0_M1 5 /*!< first multiplexer S0 pin */
+#define S1_M1 6 /*!< first multiplexer S1 pin */
+#define S2_M1 7 /*!< first multiplexer S2 pin */
+#define S3_M1 8 /*!< first multiplexer S8 pin */
+#define SIG_M1 9 /*!< first multiplexer SIG pin */
+
+#define S0_M2 0 /*!< second multiplexer S0 pin */
+#define S1_M2 1 /*!< second multiplexer S1 pin */
+#define S2_M2 2 /*!< second multiplexer S2 pin */
+#define S3_M2 3 /*!< second multiplexer S3 pin */
+#define SIG_M2 4 /*!< second multiplexer SIG pin */
+
+void setLed(); /*!< turn off Arduino build-in led */
+void setMux(); /*!< set multiplexer pin mode */
+void setCursor(); /*!< set the pins of the analog mini joystick */
+void setPot(); /*!< set the analog pin of the potentiometer */
 
 #endif //FLYBOX3_SETMICRO_H

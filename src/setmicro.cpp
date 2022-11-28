@@ -26,4 +26,30 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 void setLed(){
     // disable TXLED and RXLED (TXLED is always on if the USB is tranmitting data)
     DDRD &= ~(1<<5);
-} 
+}
+
+void setMux(){
+    // first multiplexer
+    pinMode(S0_M1, OUTPUT);
+    pinMode(S1_M1,OUTPUT);
+    pinMode(S2_M1,OUTPUT);
+    pinMode(S3_M1,OUTPUT);
+    pinMode(SIG_M1,INPUT_PULLUP);
+
+    // second multiplexer
+    pinMode(S0_M2, OUTPUT);
+    pinMode(S1_M2,OUTPUT);
+    pinMode(S2_M2,OUTPUT);
+    pinMode(S3_M2,OUTPUT);
+    pinMode(SIG_M2,INPUT_PULLUP);
+}
+
+void setCursor(){
+    pinMode(BT_JOY, INPUT_PULLUP);
+    pinMode(H_JOY, INPUT);
+    pinMode(V_JOY, INPUT);
+}
+
+void setPot(){
+    pinMode(POT, INPUT);
+}
