@@ -21,9 +21,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #ifndef FLYBOX3_SETMICRO_H
 #define FLYBOX3_SETMICRO_H
 
-/**
- * turn on and off Arduino build in leds
- */
-void setLed();
+void setLed(); /*!< turn off Arduino build in leds */
 
 #endif //FLYBOX3_SETMICRO_H
