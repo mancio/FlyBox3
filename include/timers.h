@@ -35,9 +35,7 @@ class Timers {
         void update();
         /**
          * check if the time expire
-         *
          * @param t time limit
-         *
          * @return true if time expired otherwise false
          */
         bool expired(unsigned long t);

@@ -18,19 +18,24 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <Arduino.h>
-#include <setmicro.h>
+#ifndef FLYBOX3_JOYCONF_H
+#define FLYBOX3_JOYCONF_H
 
+#define X 0;
+#define Y 1;
 
+/**
+ * call Arduino Joystick library to initialize the Joystick component
+ */
+void initJoy();
 
-void setup() {
-    setLed();
-    Joystick.begin();
-    setMux();
-    setCursor();
-    setPot();
-}
+/**
+ * assign a value to the Axis after Analog Read
+ * @param name of the axis (X,Y,Z,...)
+ * @param pin number to read
+ * @param direction NORM = normal or REV = reversed
+ * @return the axis position as a number
+ */
+long setAxis(int name, int pin, bool direction);
 
-void loop() {
-// write your code here
-}
+#endif //FLYBOX3_JOYCONF_H

@@ -18,19 +18,26 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <Arduino.h>
-#include <setmicro.h>
+#include "../.pio/libdeps/leonardo/Joystick/src/Joystick.h"
 
-
-
-void setup() {
-    setLed();
-    Joystick.begin();
-    setMux();
-    setCursor();
-    setPot();
-}
-
-void loop() {
-// write your code here
-}
+/**
+ * initialize controller for a left hand pad with axes X,Y,Z,
+ * throttle axis and 33 buttons
+ */
+Joystick_ Joystick(
+        JOYSTICK_DEFAULT_REPORT_ID, // joystick ID
+        JOYSTICK_TYPE_JOYSTICK, // device type
+        32, // buttons number starting from zero
+        0, // hotswitch count
+        true, // X axis
+        true, // Y axis
+        false, // Z axis
+        false, // X rotation?
+        false, // Y rotation?
+        false, // Z rotation?
+        false, // rudder
+        true, // throttle
+        false, // accelerator
+        false, // brake
+        false // steering
+);
