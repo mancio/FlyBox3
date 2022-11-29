@@ -18,27 +18,23 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef FLYBOX3_TIMERS_H
-#define FLYBOX3_TIMERS_H
+#include <logger.h>
+#include <Arduino.h>
 
-/**
- * define all timers activity
- */
-class Timers {
-    private:
-        unsigned long last = 0; /*!< last timestamp stored */
-    public:
-        /**
-         * update time by calculating the difference
-         * between the current time and the Arduino boot
-         */
-        void updateTimer();
-        /**
-         * check if the time expire
-         * @param t time limit
-         * @return true if time TimerIsExpired otherwise false
-         */
-        bool TimerIsExpired(unsigned long t);
-};
+Logger::Logger(int axes_number) {
+    axes_number = axes;
+}
 
-#endif //FLYBOX3_TIMERS_H
+void Logger::logAxes() {
+    for (int i = 0; i < sizeof(axes_array) ; ++i) {
+        String line = " Axis " + axes_array[i] + ":"
+        Serial.print(x_p);
+    }
+    Serial.print("Axis X: ");
+    Serial.print(x_p);
+    Serial.print("    Axis Y: ");
+    Serial.print(y_p);
+    Serial.print("    Axis Z: ");
+    Serial.print(z_p);
+    Serial.println("");
+}

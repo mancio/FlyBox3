@@ -21,21 +21,61 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #ifndef FLYBOX3_JOYCONF_H
 #define FLYBOX3_JOYCONF_H
 
-#define X 0;
-#define Y 1;
+#include "../.pio/libdeps/leonardo/Joystick/src/Joystick.h"
 
-/**
- * call Arduino Joystick library to initialize the Joystick component
- */
-void initJoy();
+#define IN_MAX 1024
+#define OUT_MIN (-101)
+#define OUT_MAX 101
+#define ZERO_AT_START false
+#define ZERO_AT_CENTER true
+#define X 0
+#define Y 1
+#define Z 2
+#define NORM true
+#define REV false
 
-/**
- * assign a value to the Axis after Analog Read
- * @param name of the axis (X,Y,Z,...)
- * @param pin number to read
- * @param direction NORM = normal or REV = reversed
- * @return the axis position as a number
- */
-long setAxis(int name, int pin, bool direction);
+class Joy {
+    private:
+        Joystick_ NewJoy;
+    public:
+        /**
+         * call Arduino Joystick library to initialize the Joystick component.
+         * It makes a new Joystick object
+         * with the following configuration:
+         * axes X,Y,Z,
+         * throttle axis and 33 buttons.
+         * Use in main before setup and loop.
+         */
+        Joy();
+
+        /**
+         * wrap of the begin function of the Joystick arduino library.
+         * It goes inside setup();
+         */
+        void startJoy();
+
+        /**
+         * assign a value to the Axis after Analog Read
+         * @param name of the axis (X,Y,Z,...)
+         * @param pin number to read
+         * @param direction NORM = normal or REV = reversed
+         * @param type
+         * @return the axis position
+         */
+        long setAxis(int name, int pin, bool direction, bool type);
+
+        /**
+         * map the value from analog value to different scale.
+         * Mapping to a smaller scale reduce axis flickering.
+         * @param value
+         * @param direction
+         * @param type
+         * @return
+         */
+        static long mapValue(long value, bool direction, bool type);
+};
+
+
+
 
 #endif //FLYBOX3_JOYCONF_H

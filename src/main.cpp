@@ -20,17 +20,31 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <Arduino.h>
 #include <setmicro.h>
+#include <joyconf.h>
+#include <logger.h>
 
+Joy Joy;
+Logger logger(3);
 
+long axes_values[] = {};
+bool log_active = true;
 
 void setup() {
     setLed();
-    Joystick.begin();
+    Joy.startJoy();
     setMux();
     setCursor();
     setPot();
 }
 
 void loop() {
-// write your code here
+    long x_pos = Joy.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
+    long y_pos = Joy.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
+    long z_pos = Joy.setAxis(Z, POT, NORM, ZERO_AT_START);
+
+    if(log_active){
+    // print axes pos to monitor
+        logger.logAxes(x_pos, y_pos, z_pos);
+    }
 }
+

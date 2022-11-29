@@ -18,27 +18,20 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef FLYBOX3_TIMERS_H
-#define FLYBOX3_TIMERS_H
+#ifndef FLYBOX3_LOGGER_H
+#define FLYBOX3_LOGGER_H
 
-/**
- * define all timers activity
- */
-class Timers {
+#include <Arduino.h>
+
+static String axes_array[3] = {"X","Y","Z"};
+
+class Logger {
     private:
-        unsigned long last = 0; /*!< last timestamp stored */
+        int axes = 0;
     public:
-        /**
-         * update time by calculating the difference
-         * between the current time and the Arduino boot
-         */
-        void updateTimer();
-        /**
-         * check if the time expire
-         * @param t time limit
-         * @return true if time TimerIsExpired otherwise false
-         */
-        bool TimerIsExpired(unsigned long t);
+        Logger(int axes_number);
+        void logAxes();
 };
 
-#endif //FLYBOX3_TIMERS_H
+
+#endif //FLYBOX3_LOGGER_H
