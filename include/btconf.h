@@ -18,12 +18,38 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <logger.h>
-#include <Arduino.h>
+#ifndef FLYBOX3_BTCONF_H
+#define FLYBOX3_BTCONF_H
 
-void Logger::logAxes(long *values) {
-    for (int i = 0; i < (int)(sizeof(*values) / sizeof(long)); ++i) {
-        String line = " Axis " + axes_names_array[i] + ": " + values[i] + " ";
-        Serial.println(" ");
-    }
-}
+class Button {
+    private:
+        // pin to debounce
+        int _pin;
+        // previous reading state
+        int _last_state;
+        // current reading state
+        int _state;
+    public:
+        /**
+         * to initialize the button handler component
+         */
+        Button();
+
+        /**
+         * debounce the pin
+         *
+         * @param long delay time in milliseconds
+         *
+         * @return int 0 pressed and 1 released (using pullup configuration)
+         */
+        int debounce(long delay);
+
+        /**
+         * set the pin to be debounced
+         *
+         * @param int pin number
+         */
+        void setPin(int pin);
+};
+
+#endif //FLYBOX3_BTCONF_H

@@ -23,14 +23,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <Arduino.h>
 
-static String axes_array[3] = {"X","Y","Z"};
+static String axes_names_array[3] = {"X", "Y", "Z"};
 
 class Logger {
-    private:
-        int axes = 0;
     public:
-        Logger(int axes_number);
-        void logAxes();
+        void logAxes(long *values);
 };
 
 

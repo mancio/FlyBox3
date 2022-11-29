@@ -18,12 +18,5 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <logger.h>
-#include <Arduino.h>
+#include "btconf.h"
 
-void Logger::logAxes(long *values) {
-    for (int i = 0; i < (int)(sizeof(*values) / sizeof(long)); ++i) {
-        String line = " Axis " + axes_names_array[i] + ": " + values[i] + " ";
-        Serial.println(" ");
-    }
-}

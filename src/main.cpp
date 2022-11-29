@@ -24,9 +24,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <logger.h>
 
 Joy Joy;
-Logger logger(3);
+Logger logger;
 
-long axes_values[] = {};
+long axes_values[3] = {};
 bool log_active = true;
 
 void setup() {
@@ -38,13 +38,12 @@ void setup() {
 }
 
 void loop() {
-    long x_pos = Joy.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
-    long y_pos = Joy.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
-    long z_pos = Joy.setAxis(Z, POT, NORM, ZERO_AT_START);
+    axes_values[0] = Joy.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
+    axes_values[1] = Joy.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
+    axes_values[2] = Joy.setAxis(Z, POT, NORM, ZERO_AT_START);
 
     if(log_active){
-    // print axes pos to monitor
-        logger.logAxes(x_pos, y_pos, z_pos);
+        logger.logAxes(axes_values);
     }
 }
 
