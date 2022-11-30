@@ -22,11 +22,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <setmicro.h>
 #include <joyconf.h>
 #include <logger.h>
+#include <btconf.h>
 
 Joy Joy;
 Logger logger;
+Button bArrayM1[16]
 
-long axes_values[3] = {};
+long axes_values[3];
 bool log_active = true;
 
 void setup() {
@@ -41,6 +43,7 @@ void loop() {
     axes_values[0] = Joy.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
     axes_values[1] = Joy.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
     axes_values[2] = Joy.setAxis(Z, POT, NORM, ZERO_AT_START);
+
 
     if(log_active){
         logger.logAxes(axes_values);

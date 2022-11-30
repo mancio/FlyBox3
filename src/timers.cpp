@@ -21,11 +21,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <Arduino.h>
 #include <timers.h>
 
-void Timers::updateTimer(){
+void Timer::updateTimer(){
     last = millis();
 }
 
-bool Timers::TimerIsExpired(unsigned long t){
+bool Timer::TimerIsExpired(unsigned long t) const{
     if(millis()-last>t) return true;
     else return false;
 }

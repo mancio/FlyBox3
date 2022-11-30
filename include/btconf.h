@@ -21,14 +21,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #ifndef FLYBOX3_BTCONF_H
 #define FLYBOX3_BTCONF_H
 
+#include <timers.h>
+
 class Button {
     private:
         // pin to debounce
         int _pin;
         // previous reading state
-        int _last_state;
+        int last_state;
         // current reading state
-        int _state;
+        int state;
+        // timer for button debounce
+        Timer T;
     public:
         /**
          * to initialize the button handler component
@@ -45,11 +49,16 @@ class Button {
         int debounce(long delay);
 
         /**
-         * set the pin to be debounced
+         * set the newpin to be debounced
          *
-         * @param int pin number
+         * @param int newpin number
          */
         void setPin(int pin);
 };
+
+Button btArrayM1[16];
+Button btArrayM2[16];
+
+void fillButtonArray(Button bt, int array);
 
 #endif //FLYBOX3_BTCONF_H

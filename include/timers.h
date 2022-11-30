@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 /**
  * define all timers activity
  */
-class Timers {
+class Timer {
     private:
         unsigned long last = 0; /*!< last timestamp stored */
     public:
@@ -38,7 +38,7 @@ class Timers {
          * @param t time limit
          * @return true if time TimerIsExpired otherwise false
          */
-        bool TimerIsExpired(unsigned long t);
+        bool TimerIsExpired(unsigned long t) const;
 };
 
 #endif //FLYBOX3_TIMERS_H
