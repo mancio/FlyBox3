@@ -23,30 +23,37 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <joyconf.h>
 #include <logger.h>
 #include <btconf.h>
+#include <muxconf.h>
 
-Joy Joy;
-Logger logger;
-Button bArrayM1[16]
+Joy myJoy;
+Logger myLogger;
+Multiplexer mux1(myJoy, S0_M1, S0_M1, S2_M1, S3_M1, SIG_M1);
+Multiplexer mux2(myJoy, S0_M2, S0_M2, S2_M2, SIG_M2);
+Button bArrayM1[TOT_BUTTONS_MUX];
+Button bArrayM2[TOT_BUTTONS_MUX];
 
 long axes_values[3];
 bool log_active = true;
 
 void setup() {
     setLed();
-    Joy.startJoy();
+    myJoy.startJoy();
     setMux();
     setCursor();
     setPot();
 }
 
 void loop() {
-    axes_values[0] = Joy.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
-    axes_values[1] = Joy.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
-    axes_values[2] = Joy.setAxis(Z, POT, NORM, ZERO_AT_START);
+    axes_values[0] = myJoy.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
+    axes_values[1] = myJoy.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
+    axes_values[2] = myJoy.setAxis(Z, POT, NORM, ZERO_AT_START);
+
+    mux1.readMux(bArrayM1);
+    mux2.readMux(bArrayM2);
 
 
     if(log_active){
-        logger.logAxes(axes_values);
+        myLogger.logAxes(axes_values);
     }
 }
 

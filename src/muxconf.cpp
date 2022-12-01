@@ -18,26 +18,18 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <btconf.h>
-#include <Arduino.h>
+#include <muxconf.h>
 
-Button::Button() {
-    last_state = HIGH;
-    state = HIGH;
-    _pin = 0;
+Multiplexer::Multiplexer(Joy joy, int s0, int s1, int s2, int s3, int sig) {
+    CD74HC4067 Mux(s0, s1, s2, s3);
+    newMux = Mux;
+    newJoy = joy;
 }
 
-int Button::debounce(long delay){
-    state = digitalRead(_pin);
-    last_state = state;
-    if(T.TimerIsExpired(delay)){
-        T.updateTimer();
-        if (!state) return 0;
-        else return 1;
+void Multiplexer::readMux(Button *btArray) {
+    for (int i = 0; i < TOT_BUTTONS_MUX; i++) {
+        newMux.channel(i);
+        int bt_in = btArray[i].debounce(BUTTONS_DEBOUNCE_DELAY);
+        newJoy.writeButton(i, !bt_in);
     }
-    return last_state;
-}
-
-void Button::setPin(int pin){
-    _pin = pin;
 }

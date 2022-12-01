@@ -19,6 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include <joyconf.h>
+#include "btconf.h"
 
 Joy::Joy(){
     Joystick_ Joy(
@@ -63,4 +64,8 @@ long Joy::setAxis(int name, int pin, bool direction, bool type) {
     if(name == Y) NewJoy.setYAxis(mapped);
     if(name == Z) NewJoy.setZAxis(mapped);
     return mapped;
+}
+
+void Joy::writeButton(int button, int state) {
+    NewJoy.setButton(button, state);
 }

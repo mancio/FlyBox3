@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define FLYBOX3_JOYCONF_H
 
 #include "../.pio/libdeps/leonardo/Joystick/src/Joystick.h"
+#include "btconf.h"
 
 #define IN_MAX 1024
 #define OUT_MIN (-101)
@@ -73,6 +74,9 @@ class Joy {
          * @return
          */
         static long mapValue(long value, bool direction, bool type);
+
+        void writeButton(int button, int state);
+
 };
 
 
