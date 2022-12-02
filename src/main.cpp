@@ -41,7 +41,7 @@ void setup() {
     setButtonSIG(bArrayM1, bArrayM2, SIG_M1, SIG_M2);
     setCursor();
     setPot();
-    myJoy.startJoy(0);
+    myJoy.startJoy(AXES_NUMBER);
 }
 
 void loop() {
@@ -54,9 +54,9 @@ void loop() {
 
 
     if(log_active){
-        myLogger.logAxes(axes_values, 0);
-        myLogger.logActiveButtons(btStateArray1);
-        myLogger.logActiveButtons(btStateArray2);
+        myLogger.logAxes(axes_values, AXES_NUMBER);
+        Logger::logActiveButtons(btStateArray1);
+        Logger::logActiveButtons(btStateArray2);
     }
 }
 
