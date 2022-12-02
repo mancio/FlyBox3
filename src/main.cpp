@@ -20,27 +20,28 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <Arduino.h>
 #include <setmicro.h>
-#include <joyconf.h>
+#include <joy.h>
 #include <logger.h>
-#include <btconf.h>
-#include <muxconf.h>
+#include <bt.h>
+#include <mux.h>
 
 Joy myJoy;
 Logger myLogger;
-Multiplexer mux1(myJoy, S0_M1, S0_M1, S2_M1, S3_M1, SIG_M1);
-Multiplexer mux2(myJoy, S0_M2, S0_M2, S2_M2, SIG_M2);
+Multiplexer mux1(myJoy, S0_M1, S0_M1, S2_M1, S3_M1);
+Multiplexer mux2(myJoy, S0_M2, S1_M2, S2_M2, S3_M2);
 Button bArrayM1[TOT_BUTTONS_MUX];
 Button bArrayM2[TOT_BUTTONS_MUX];
 
-long axes_values[3];
+long axes_values[AXES_NUMBER];
 bool log_active = true;
 
 void setup() {
     setLed();
-    myJoy.startJoy();
-    setMux();
+    setPinMux();
+    setButtonSIG(bArrayM1, bArrayM2, SIG_M1, SIG_M2);
     setCursor();
     setPot();
+    myJoy.startJoy(0);
 }
 
 void loop() {
@@ -48,12 +49,14 @@ void loop() {
     axes_values[1] = myJoy.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
     axes_values[2] = myJoy.setAxis(Z, POT, NORM, ZERO_AT_START);
 
-    mux1.readMux(bArrayM1);
-    mux2.readMux(bArrayM2);
+    int* btStateArray1 = mux1.readMux(bArrayM1);
+    int* btStateArray2 = mux2.readMux(bArrayM2);
 
 
     if(log_active){
-        myLogger.logAxes(axes_values);
+        myLogger.logAxes(axes_values, 0);
+        myLogger.logActiveButtons(btStateArray1);
+        myLogger.logActiveButtons(btStateArray2);
     }
 }
 

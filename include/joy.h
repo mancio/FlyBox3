@@ -18,11 +18,11 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef FLYBOX3_JOYCONF_H
-#define FLYBOX3_JOYCONF_H
+#ifndef FLYBOX3_JOY_H
+#define FLYBOX3_JOY_H
 
 #include "../.pio/libdeps/leonardo/Joystick/src/Joystick.h"
-#include "btconf.h"
+#include "bt.h"
 
 #define IN_MAX 1024
 #define OUT_MIN (-101)
@@ -52,8 +52,9 @@ class Joy {
         /**
          * wrap of the begin function of the Joystick arduino library.
          * It goes inside setup();
+         * @param axes
          */
-        void startJoy();
+        void startJoy(int axes);
 
         /**
          * assign a value to the Axis after Analog Read
@@ -76,10 +77,9 @@ class Joy {
         static long mapValue(long value, bool direction, bool type);
 
         void writeButton(int button, int state);
-
 };
 
 
 
 
-#endif //FLYBOX3_JOYCONF_H
+#endif //FLYBOX3_JOY_H

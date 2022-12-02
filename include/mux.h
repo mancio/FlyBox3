@@ -18,26 +18,33 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <btconf.h>
-#include <Arduino.h>
+#ifndef FLYBOX3_MUX_H
+#define FLYBOX3_MUX_H
 
-Button::Button() {
-    last_state = HIGH;
-    state = HIGH;
-    _pin = 0;
-}
+#include "../.pio/libdeps/leonardo/CD74HC4067/src/CD74HC4067.h"
+#include "bt.h"
+#include "joy.h"
 
-int Button::debounce(long delay){
-    state = digitalRead(_pin);
-    last_state = state;
-    if(T.TimerIsExpired(delay)){
-        T.updateTimer();
-        if (!state) return 0;
-        else return 1;
-    }
-    return last_state;
-}
+class Multiplexer{
+    private:
+       CD74HC4067 newMux = CD74HC4067(0, 0, 0, 0);
+       Joy newJoy;
+    public:
+        /**
+         *
+         * @param s0
+         * @param s1
+         * @param s2
+         * @param s3
+         */
+        Multiplexer(Joy joy, int s0, int s1, int s2, int s3);
+        /**
+         *
+         * @param btArray
+         * @return
+         */
+        int* readMux(Button *btArray);
 
-void Button::setPin(int pin){
-    _pin = pin;
-}
+};
+
+#endif //FLYBOX3_MUX_H

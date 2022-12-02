@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <joyconf.h>
-#include "btconf.h"
+#include <joy.h>
+#include "bt.h"
 
 Joy::Joy(){
     Joystick_ Joy(
@@ -42,8 +42,13 @@ Joy::Joy(){
     NewJoy = Joy;
 }
 
-void Joy::startJoy(){
+void Joy::startJoy(int axes) {
     NewJoy.begin();
+    for (int i = 1; i <= axes; ++i) {
+        if(i == 1) NewJoy.setXAxisRange(OUT_MIN, OUT_MAX);
+        if(i == 2) NewJoy.setYAxisRange(OUT_MIN, OUT_MAX);
+        if(i == 3) NewJoy.setZAxisRange(OUT_MIN, OUT_MAX);
+    }
 }
 
 long Joy::mapValue(long value, bool direction, bool type) {

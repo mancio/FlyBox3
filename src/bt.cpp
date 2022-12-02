@@ -18,19 +18,33 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef FLYBOX3_LOGGER_H
-#define FLYBOX3_LOGGER_H
-
+#include <bt.h>
 #include <Arduino.h>
 
-class Logger {
-    private:
-        String axes_names_array[3] = {"X", "Y", "Z"};
-    public:
-        void logAxes(long *values, int axes);
+Button::Button() {
+    last_state = HIGH;
+    state = HIGH;
+    _pin = 0;
+}
 
-        static void logActiveButtons(const int *btArray);
-};
+int Button::debounce(long delay){
+    state = digitalRead(_pin);
+    last_state = state;
+    if(T.TimerIsExpired(delay)){
+        T.updateTimer();
+        if (!state) return 0;
+        else return 1;
+    }
+    return last_state;
+}
 
+void Button::setPin(int pin){
+    _pin = pin;
+}
 
-#endif //FLYBOX3_LOGGER_H
+void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2){
+    for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
+        btArray1[i].setPin(sig1);
+        btArray2[i].setPin(sig2);
+    }
+}

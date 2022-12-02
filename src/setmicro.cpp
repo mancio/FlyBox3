@@ -28,7 +28,7 @@ void setLed(){
     DDRD &= ~(1<<5);
 }
 
-void setMux(){
+void setPinMux(){
     // first multiplexer
     pinMode(S0_M1, OUTPUT);
     pinMode(S1_M1,OUTPUT);

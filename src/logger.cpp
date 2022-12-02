@@ -19,11 +19,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include <logger.h>
+#include <bt.h>
 #include <Arduino.h>
 
-void Logger::logAxes(long *values) {
-    for (int i = 0; i < (int)(sizeof(*values) / sizeof(long)); ++i) {
+void Logger::logAxes(long *values, int axes) {
+    for (int i = 0; i < axes; ++i) {
         String line = " Axis " + axes_names_array[i] + ": " + values[i] + " ";
+        Serial.print(line);
         Serial.println(" ");
+    }
+}
+
+void Logger::logActiveButtons(const int *btArray){
+    for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
+        if(btArray[i] != 0) {
+            String line = "Button " + String(i) + ": ON";
+            Serial.print(line);
+            Serial.println(" ");
+        }
     }
 }

@@ -39,8 +39,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define S3_M2 3 /*!< second multiplexer S3 pin */
 #define SIG_M2 4 /*!< second multiplexer SIG pin */
 
+#define AXES_NUMBER 3 /*!< total number of axes */
+
 void setLed(); /*!< turn off Arduino build-in led */
-void setMux(); /*!< set multiplexer pin mode */
+void setPinMux(); /*!< set multiplexer pin mode */
 void setCursor(); /*!< set the pins of the analog mini joystick */
 void setPot(); /*!< set the analog pin of the potentiometer */
 

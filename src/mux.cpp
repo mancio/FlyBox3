@@ -18,18 +18,21 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <muxconf.h>
+#include <mux.h>
 
-Multiplexer::Multiplexer(Joy joy, int s0, int s1, int s2, int s3, int sig) {
+Multiplexer::Multiplexer(Joy joy, int s0, int s1, int s2, int s3) {
     CD74HC4067 Mux(s0, s1, s2, s3);
     newMux = Mux;
     newJoy = joy;
 }
 
-void Multiplexer::readMux(Button *btArray) {
+int* Multiplexer::readMux(Button *btArray) {
+    int *stateArray = new int[TOT_BUTTONS_MUX];
     for (int i = 0; i < TOT_BUTTONS_MUX; i++) {
         newMux.channel(i);
         int bt_in = btArray[i].debounce(BUTTONS_DEBOUNCE_DELAY);
         newJoy.writeButton(i, !bt_in);
+        stateArray[i] = !bt_in;
     }
+    return stateArray;
 }

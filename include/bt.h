@@ -18,32 +18,45 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef FLYBOX3_MUXCONF_H
-#define FLYBOX3_MUXCONF_H
+#ifndef FLYBOX3_BT_H
+#define FLYBOX3_BT_H
 
-#include "../.pio/libdeps/leonardo/CD74HC4067/src/CD74HC4067.h"
-#include "btconf.h"
-#include "joyconf.h"
+#define TOT_BUTTONS_MUX 16
 
-class Multiplexer{
+#define BUTTONS_DEBOUNCE_DELAY 100
+
+#include <timers.h>
+
+class Button {
     private:
-       CD74HC4067 newMux = CD74HC4067(0, 0, 0, 0);
-       Joy newJoy;
+        // pin to debounce
+        int _pin;
+        // previous reading state
+        int last_state;
+        // current reading state
+        int state;
+        // timer for button debounce
+        Timer T;
     public:
         /**
-         *
-         * @param s0
-         * @param s1
-         * @param s2
-         * @param s3
+         * to initialize the button handler component
          */
-        Multiplexer(Joy joy, int s0, int s1, int s2, int s3, int sig);
-        /**
-         *
-         * @param btArray
-         */
-        void readMux(Button *btArray);
+        Button();
 
+        /**
+         * debounce the pin
+         *
+         * @param long delay time in milliseconds
+         *
+         * @return int 0 pressed and 1 released (using pullup configuration)
+         */
+        int debounce(long delay);
+
+        void setPin(int pin);
 };
 
-#endif //FLYBOX3_MUXCONF_H
+void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2);
+
+
+
+#endif //FLYBOX3_BT_H
