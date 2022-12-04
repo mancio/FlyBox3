@@ -38,7 +38,7 @@ class Timer {
          * @param t time limit
          * @return true if time TimerIsExpired otherwise false
          */
-        bool TimerIsExpired(unsigned long t) const;
+        bool TimerIsExpired(unsigned long t);
 };
 
 #endif //FLYBOX3_TIMERS_H

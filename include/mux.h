@@ -25,26 +25,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "bt.h"
 #include "joy.h"
 
-class Multiplexer{
-    private:
-       CD74HC4067 newMux = CD74HC4067(0, 0, 0, 0);
-       Joy newJoy;
-    public:
-        /**
-         *
-         * @param s0
-         * @param s1
-         * @param s2
-         * @param s3
-         */
-        Multiplexer(Joy joy, int s0, int s1, int s2, int s3);
-        /**
-         *
-         * @param btArray
-         * @return
-         */
-        int* readMux(Button *btArray);
-
-};
+int *readMux(Joystick_ newJoy, CD74HC4067 mux, Button *btArray);
 
 #endif //FLYBOX3_MUX_H

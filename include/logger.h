@@ -23,14 +23,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <Arduino.h>
 
-class Logger {
-    private:
-        String axes_names_array[3] = {"X", "Y", "Z"};
-    public:
-        void logAxes(long *values, int axes);
 
-        static void logActiveButtons(const int *btArray);
-};
+    void logAxes(long *values, int axes);
+
+    void logActiveButtons(int *btArray);
+
 
 
 #endif //FLYBOX3_LOGGER_H

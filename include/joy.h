@@ -35,51 +35,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define NORM true
 #define REV false
 
-class Joy {
-    private:
-        Joystick_ NewJoy;
-    public:
-        /**
-         * call Arduino Joystick library to initialize the Joystick component.
-         * It makes a new Joystick object
-         * with the following configuration:
-         * axes X,Y,Z,
-         * throttle axis and 33 buttons.
-         * Use in main before setup and loop.
-         */
-        Joy();
+void setAxesRange(Joystick_ newJoy, int axes);
 
-        /**
-         * wrap of the begin function of the Joystick arduino library.
-         * It goes inside setup();
-         * @param axes
-         */
-        void startJoy(int axes);
-
-        /**
-         * assign a value to the Axis after Analog Read
-         * @param name of the axis (X,Y,Z,...)
-         * @param pin number to read
-         * @param direction NORM = normal or REV = reversed
-         * @param type
-         * @return the axis position
-         */
-        long setAxis(int name, int pin, bool direction, bool type);
-
-        /**
-         * map the value from analog value to different scale.
-         * Mapping to a smaller scale reduce axis flickering.
-         * @param value
-         * @param direction
-         * @param type
-         * @return
-         */
-        static long mapValue(long value, bool direction, bool type);
-
-        void writeButton(int button, int state);
-};
+long mapValue(long value, bool direction, bool type);
 
 
+long setAxis(Joystick_ newJoy, int name, int pin, bool direction, bool type);
 
 
 #endif //FLYBOX3_JOY_H

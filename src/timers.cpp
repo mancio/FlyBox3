@@ -25,7 +25,7 @@ void Timer::updateTimer(){
     last = millis();
 }
 
-bool Timer::TimerIsExpired(unsigned long t) const{
+bool Timer::TimerIsExpired(unsigned long t){
     if(millis()-last>t) return true;
     else return false;
 }

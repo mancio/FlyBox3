@@ -22,7 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <bt.h>
 #include <Arduino.h>
 
-void Logger::logAxes(long *values, int axes) {
+void logAxes(long *values, int axes) {
+    String axes_names_array[3] = {"X","Y", "Z (POT)"};
     for (int i = 0; i < axes; ++i) {
         String line = " Axis " + axes_names_array[i] + ": " + values[i] + " ";
         Serial.print(line);
@@ -30,7 +31,7 @@ void Logger::logAxes(long *values, int axes) {
     }
 }
 
-void Logger::logActiveButtons(const int *btArray){
+void logActiveButtons(int *btArray){
     for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
         if(btArray[i] != 0) {
             String line = "Button " + String(i) + ": ON";

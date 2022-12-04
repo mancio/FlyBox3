@@ -19,31 +19,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include <joy.h>
-#include "bt.h"
 
-Joy::Joy(){
-    Joystick_ Joy(
-            JOYSTICK_DEFAULT_REPORT_ID, // joystick ID
-            JOYSTICK_TYPE_JOYSTICK, // device type
-            32, // buttons number starting from zero
-            0, // hotswitch count
-            true, // X axis
-            true, // Y axis
-            true, // Z axis
-            false, // X rotation?
-            false, // Y rotation?
-            false, // Z rotation?
-            false, // rudder
-            false, // throttle
-            false, // accelerator
-            false, // brake
-            false // steering
-    );
-    NewJoy = Joy;
-}
-
-void Joy::startJoy(int axes) {
-    NewJoy.begin();
+void setAxesRange(Joystick_ NewJoy,  int axes) {
     for (int i = 1; i <= axes; ++i) {
         if(i == 1) NewJoy.setXAxisRange(OUT_MIN, OUT_MAX);
         if(i == 2) NewJoy.setYAxisRange(OUT_MIN, OUT_MAX);
@@ -51,7 +28,7 @@ void Joy::startJoy(int axes) {
     }
 }
 
-long Joy::mapValue(long value, bool direction, bool type) {
+long mapValue(long value, bool direction, bool type) {
     if(type){
         if(direction) return map(value, 0, IN_MAX, OUT_MIN, OUT_MAX);
         else return map(value, 0, IN_MAX, OUT_MAX, OUT_MIN);
@@ -62,15 +39,11 @@ long Joy::mapValue(long value, bool direction, bool type) {
 
 }
 
-long Joy::setAxis(int name, int pin, bool direction, bool type) {
+long setAxis(Joystick_ NewJoy, int name, int pin, bool direction, bool type) {
     long val = analogRead(pin);
     long mapped = mapValue(val, direction, type);
     if(name == X) NewJoy.setXAxis(mapped);
     if(name == Y) NewJoy.setYAxis(mapped);
     if(name == Z) NewJoy.setZAxis(mapped);
     return mapped;
-}
-
-void Joy::writeButton(int button, int state) {
-    NewJoy.setButton(button, state);
 }

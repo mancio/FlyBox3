@@ -25,10 +25,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <bt.h>
 #include <mux.h>
 
-Joy myJoy;
-Logger myLogger;
-Multiplexer mux1(myJoy, S0_M1, S0_M1, S2_M1, S3_M1);
-Multiplexer mux2(myJoy, S0_M2, S1_M2, S2_M2, S3_M2);
+Joystick_ newJoy(
+        JOYSTICK_DEFAULT_REPORT_ID, // joystick ID
+        JOYSTICK_TYPE_JOYSTICK, // device type
+        32, // buttons number starting from zero
+        0, // hotswitch count
+        true, // X axis
+        true, // Y axis
+        true, // Z axis
+        false, // X rotation?
+        false, // Y rotation?
+        false, // Z rotation?
+        false, // rudder
+        false, // throttle
+        false, // accelerator
+        false, // brake
+        false // steering
+);
+CD74HC4067 mux1(S0_M1, S0_M1, S2_M1, S3_M1);
+CD74HC4067 mux2(S0_M2, S1_M2, S2_M2, S3_M2);
 Button bArrayM1[TOT_BUTTONS_MUX];
 Button bArrayM2[TOT_BUTTONS_MUX];
 
@@ -37,26 +52,25 @@ bool log_active = true;
 
 void setup() {
     setLed();
+    setAxesRange(newJoy, AXES_NUMBER);
     setPinMux();
     setButtonSIG(bArrayM1, bArrayM2, SIG_M1, SIG_M2);
     setCursor();
     setPot();
-    myJoy.startJoy(AXES_NUMBER);
 }
 
 void loop() {
-    axes_values[0] = myJoy.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
-    axes_values[1] = myJoy.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
-    axes_values[2] = myJoy.setAxis(Z, POT, NORM, ZERO_AT_START);
+    axes_values[0] = setAxis(newJoy, X, H_JOY, NORM, ZERO_AT_CENTER);
+    axes_values[1] = setAxis(newJoy, Y, V_JOY, NORM, ZERO_AT_CENTER);
+    axes_values[2] = setAxis(newJoy, Z, POT, NORM, ZERO_AT_START);
 
-    int* btStateArray1 = mux1.readMux(bArrayM1);
-    int* btStateArray2 = mux2.readMux(bArrayM2);
-
+    int* btStateArray1 = readMux(newJoy, mux1, bArrayM1);
+    int* btStateArray2 = readMux(newJoy, mux2, bArrayM2);
 
     if(log_active){
-        myLogger.logAxes(axes_values, AXES_NUMBER);
-        Logger::logActiveButtons(btStateArray1);
-        Logger::logActiveButtons(btStateArray2);
+        logAxes(axes_values, AXES_NUMBER);
+        logActiveButtons(btStateArray1);
+        logActiveButtons(btStateArray2);
     }
 }
 
