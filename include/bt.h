@@ -29,20 +29,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 class Button {
     private:
-        // pin to debounce
-        int _pin;
-        // previous reading state
-        int last_state;
-        // current reading state
-        int state;
-        // timer for button debounce
-        Timer T;
+        int _pin; /*!< pin to debounce */
+        int last_state; /*!< previous reading state */
+        int state; /*!< current reading state */
+        Timer T; /*!< timer for button debounce */
     public:
-        /**
-         * to initialize the button handler component
-         */
-        Button();
-
+        Button(); /*!< initialize the button handler component */
         /**
          * debounce the pin
          *
@@ -51,7 +43,10 @@ class Button {
          * @return int 0 pressed and 1 released (using pullup configuration)
          */
         int debounce(long delay);
-
+        /**
+         *
+         * @param pin
+         */
         void setPin(int pin);
 };
 

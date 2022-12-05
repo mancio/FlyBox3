@@ -21,12 +21,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #ifndef FLYBOX3_LOGGER_H
 #define FLYBOX3_LOGGER_H
 
+#define FIRST_ARRAY 0
+#define SECOND_ARRAY 1
+
 #include <Arduino.h>
 
 
     void logAxes(long *values, int axes);
 
-    void logActiveButtons(int *btArray);
+    void logActiveButtons(int *btArray, int arrayNumber);
 
 
 

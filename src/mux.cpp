@@ -20,8 +20,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <mux.h>
 
-int* readMux(Joystick_ newJoy, CD74HC4067 mux, Button *btArray) {
-    int *stateArray = new int[TOT_BUTTONS_MUX];
+int * readMux(Joystick_ newJoy, CD74HC4067 mux, Button *btArray) {
+    static int stateArray[TOT_BUTTONS_MUX];
     for (int i = 0; i < TOT_BUTTONS_MUX; i++) {
         mux.channel(i);
         int bt_in = btArray[i].debounce(BUTTONS_DEBOUNCE_DELAY);

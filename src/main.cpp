@@ -64,13 +64,13 @@ void loop() {
     axes_values[1] = setAxis(newJoy, Y, V_JOY, NORM, ZERO_AT_CENTER);
     axes_values[2] = setAxis(newJoy, Z, POT, NORM, ZERO_AT_START);
 
-    int* btStateArray1 = readMux(newJoy, mux1, bArrayM1);
-    int* btStateArray2 = readMux(newJoy, mux2, bArrayM2);
+    int * btStateArray1 = readMux(newJoy, mux1, bArrayM1);
+    int * btStateArray2 = readMux(newJoy, mux2, bArrayM2);
 
     if(log_active){
         logAxes(axes_values, AXES_NUMBER);
-        logActiveButtons(btStateArray1);
-        logActiveButtons(btStateArray2);
+        logActiveButtons(btStateArray1, FIRST_ARRAY);
+        logActiveButtons(btStateArray2, SECOND_ARRAY);
     }
 }
 

@@ -31,10 +31,12 @@ void logAxes(long *values, int axes) {
     }
 }
 
-void logActiveButtons(int *btArray){
-    for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
+void logActiveButtons(int *btArray, int arrayNumber) {
+    for (int i = 1; i <= TOT_BUTTONS_MUX; ++i) {
         if(btArray[i] != 0) {
-            String line = "Button " + String(i) + ": ON";
+            String line;
+            if(arrayNumber == FIRST_ARRAY) line = "Button " + String(i) + ": ON";
+            if(arrayNumber == SECOND_ARRAY) line = "Button " + String(i + TOT_BUTTONS_MUX) + ": ON";
             Serial.print(line);
             Serial.println(" ");
         }

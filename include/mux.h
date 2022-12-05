@@ -25,6 +25,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "bt.h"
 #include "joy.h"
 
-int *readMux(Joystick_ newJoy, CD74HC4067 mux, Button *btArray);
+int * readMux(Joystick_ newJoy, CD74HC4067 mux, Button *btArray);
 
 #endif //FLYBOX3_MUX_H
