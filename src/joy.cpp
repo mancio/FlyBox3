@@ -20,12 +20,51 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <joy.h>
 
-void setAxesRange(Joystick_ NewJoy,  int axes) {
+Joy::Joy(int type) {
+    if(type == DCS){
+        newJoy = new Joystick_(
+                JOYSTICK_DEFAULT_REPORT_ID, // joystick ID
+                JOYSTICK_TYPE_JOYSTICK, // device type
+                32, // buttons number starting from zero
+                0, // hotswitch count
+                true, // X axis
+                true, // Y axis
+                true, // Z axis
+                false, // X rotation?
+                false, // Y rotation?
+                false, // Z rotation?
+                false, // rudder
+                false, // throttle
+                false, // accelerator
+                false, // brake
+                false // steering
+        );
+    } else newJoy = new Joystick_();
+}
+
+Joystick_ * Joy::getJoy(){
+    return newJoy;
+}
+
+void Joy::setAxesRange(int axes) {
     for (int i = 1; i <= axes; ++i) {
-        if(i == 1) NewJoy.setXAxisRange(OUT_MIN, OUT_MAX);
-        if(i == 2) NewJoy.setYAxisRange(OUT_MIN, OUT_MAX);
-        if(i == 3) NewJoy.setZAxisRange(OUT_MIN, OUT_MAX);
+        if(newJoy != nullptr){
+            if(i == 1) newJoy->setXAxisRange(OUT_MIN, OUT_MAX);
+            if(i == 2) newJoy->setYAxisRange(OUT_MIN, OUT_MAX);
+            if(i == 3) newJoy->setZAxisRange(OUT_MIN, OUT_MAX);
+        }
     }
+}
+
+long Joy::setAxis(int name, int pin, bool direction, bool type) {
+    long val = analogRead(pin);
+    long mapped = mapValue(val, direction, type);
+    if(newJoy != nullptr){
+        if(name == X) newJoy->setXAxis(mapped);
+        if(name == Y) newJoy->setYAxis(mapped);
+        if(name == Z) newJoy->setZAxis(mapped);
+    }
+    return mapped;
 }
 
 long mapValue(long value, bool direction, bool type) {
@@ -36,14 +75,4 @@ long mapValue(long value, bool direction, bool type) {
         if(direction) return map(value, 0, IN_MAX, 0, OUT_MAX);
         else return map(value, 0, IN_MAX, OUT_MAX, 0);
     }
-
-}
-
-long setAxis(Joystick_ NewJoy, int name, int pin, bool direction, bool type) {
-    long val = analogRead(pin);
-    long mapped = mapValue(val, direction, type);
-    if(name == X) NewJoy.setXAxis(mapped);
-    if(name == Y) NewJoy.setYAxis(mapped);
-    if(name == Z) NewJoy.setZAxis(mapped);
-    return mapped;
 }

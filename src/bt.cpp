@@ -32,8 +32,8 @@ int Button::debounce(long delay){
     last_state = state;
     if(T.TimerIsExpired(delay)){
         T.updateTimer();
-        if (!state) return 0;
-        else return 1;
+        if (state == LOW) return BUTTON_PRESSED;
+        else return BUTTON_RELEASED;
     }
     return last_state;
 }

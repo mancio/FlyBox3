@@ -33,7 +33,7 @@ void logAxes(long *values, int axes) {
 
 void logActiveButtons(int *btArray, int arrayNumber) {
     for (int i = 1; i <= TOT_BUTTONS_MUX; ++i) {
-        if(btArray[i] != 0) {
+        if(btArray[i] == HIGH) {
             String line;
             if(arrayNumber == FIRST_ARRAY) line = "Button " + String(i) + ": ON";
             if(arrayNumber == SECOND_ARRAY) line = "Button " + String(i + TOT_BUTTONS_MUX) + ": ON";

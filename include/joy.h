@@ -34,13 +34,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define Z 2
 #define NORM true
 #define REV false
+#define DCS 0
 
-void setAxesRange(Joystick_ newJoy, int axes);
+class Joy{
+    private:
+        Joystick_ *newJoy = nullptr;
+    public:
+        explicit Joy(int type);
+
+    void setAxesRange(int axes);
+
+    long setAxis(int name, int pin, bool direction, bool type);
+
+    Joystick_ * getJoy();
+};
 
 long mapValue(long value, bool direction, bool type);
 
-
-long setAxis(Joystick_ newJoy, int name, int pin, bool direction, bool type);
 
 
 #endif //FLYBOX3_JOY_H
