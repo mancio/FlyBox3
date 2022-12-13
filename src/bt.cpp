@@ -38,13 +38,13 @@ int Button::debounce(long delay){
     return last_state;
 }
 
-void Button::setPin(int pin){
+void Button::setSIGPin(int pin){
     _pin = pin;
 }
 
 void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2){
     for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
-        btArray1[i].setPin(sig1);
-        btArray2[i].setPin(sig2);
+        btArray1[i].setSIGPin(sig1);
+        btArray2[i].setSIGPin(sig2);
     }
 }

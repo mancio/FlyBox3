@@ -38,18 +38,32 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 class Joy{
     private:
-        Joystick_ *newJoy = nullptr;
+        Joystick_ *newJoy = nullptr; /*!< Pointer to new Joystick element */
+        int _type; /*!< Joystick type selected */
+        int _out_min;
+        int _out_max;
+        long mapValue(long value, bool direction, bool type);
     public:
+        /**
+         * Initialize the Joystick
+         * @param type Use "DCS" for a 3 axis 32 buttons Joystick
+         */
         explicit Joy(int type);
+        void setAxesRange(int out_min, int out_max); /*!< Set the axes scale using the Arduino map function */
+        /**
+         *
+         * @param name
+         * @param pin
+         * @param direction
+         * @param type
+         * @return
+         */
+        long setAxis(int name, int pin, bool direction, bool type);
 
-    void setAxesRange(int axes);
-
-    long setAxis(int name, int pin, bool direction, bool type);
-
-    Joystick_ * getJoy();
+        Joystick_ * getJoy();
 };
 
-long mapValue(long value, bool direction, bool type);
+
 
 
 

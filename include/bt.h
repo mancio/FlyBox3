@@ -29,25 +29,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 class Button {
     private:
-        int _pin; /*!< pin to debounce */
-        int last_state; /*!< previous reading state */
-        int state; /*!< current reading state */
-        Timer T; /*!< timer for button debounce */
+        int _pin; /*!< Pin to debounce */
+        int last_state; /*!< Previous reading state */
+        int state; /*!< Current reading state */
+        Timer T; /*!< Timer for button debounce */
     public:
-        Button(); /*!< initialize the button handler component */
+        Button(); /*!< Initialize the button handler component */
         /**
-         * debounce the pin
-         *
+         * Debounce the pin
          * @param long delay time in milliseconds
-         *
          * @return int 0 pressed and 1 released (using pullup configuration)
          */
         int debounce(long delay);
         /**
-         *
-         * @param pin
+         * Set the SIG pin of Arduino
+         * @param pin connected to SIG on the Multiplexer
          */
-        void setPin(int pin);
+        void setSIGPin(int pin);
 };
 
 void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2);

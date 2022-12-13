@@ -21,6 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <joy.h>
 
 Joy::Joy(int type) {
+    _type = type;
     if(type == DCS){
         newJoy = new Joystick_(
                 JOYSTICK_DEFAULT_REPORT_ID, // joystick ID
@@ -46,12 +47,16 @@ Joystick_ * Joy::getJoy(){
     return newJoy;
 }
 
-void Joy::setAxesRange(int axes) {
+void Joy::setAxesRange(int out_min, int out_max) {
+    _out_min = out_min;
+    _out_max = out_max;
+    int axes = 2;
+    if(_type == DCS) axes = 3;
     for (int i = 1; i <= axes; ++i) {
         if(newJoy != nullptr){
-            if(i == 1) newJoy->setXAxisRange(OUT_MIN, OUT_MAX);
-            if(i == 2) newJoy->setYAxisRange(OUT_MIN, OUT_MAX);
-            if(i == 3) newJoy->setZAxisRange(OUT_MIN, OUT_MAX);
+            if(i == 1) newJoy->setXAxisRange(_out_min, _out_max);
+            if(i == 2) newJoy->setYAxisRange(_out_min, _out_max);
+            if(i == 3) newJoy->setZAxisRange(_out_min, _out_max);
         }
     }
 }
@@ -67,12 +72,12 @@ long Joy::setAxis(int name, int pin, bool direction, bool type) {
     return mapped;
 }
 
-long mapValue(long value, bool direction, bool type) {
+long Joy::mapValue(long value, bool direction, bool type) {
     if(type){
-        if(direction) return map(value, 0, IN_MAX, OUT_MIN, OUT_MAX);
-        else return map(value, 0, IN_MAX, OUT_MAX, OUT_MIN);
+        if(direction) return map(value, 0, IN_MAX, _out_min, _out_max);
+        else return map(value, 0, IN_MAX, _out_max, _out_min);
     } else {
-        if(direction) return map(value, 0, IN_MAX, 0, OUT_MAX);
-        else return map(value, 0, IN_MAX, OUT_MAX, 0);
+        if(direction) return map(value, 0, IN_MAX, 0, _out_max);
+        else return map(value, 0, IN_MAX, _out_max, 0);
     }
 }

@@ -36,7 +36,7 @@ bool log_active = true;
 
 void setup() {
     setLed();
-    j.setAxesRange(AXES_NUMBER);
+    j.setAxesRange(OUT_MIN, OUT_MAX);
     setPinMux();
     setButtonSIG(bArrayM1, bArrayM2, SIG_M1, SIG_M2);
     setCursor();
@@ -48,8 +48,8 @@ void loop() {
     axes_values[Y] = j.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
     axes_values[Z] = j.setAxis(Z, POT, NORM, ZERO_AT_START);
 
-    int * btStateArray1 = mux1.readMux(bArrayM1);
-    int * btStateArray2 = mux2.readMux(bArrayM2);
+    int * btStateArray1 = mux1.readMux(bArrayM1, REV);
+    int * btStateArray2 = mux2.readMux(bArrayM2, NORM);
 
     if(log_active){
         logAxes(axes_values, AXES_NUMBER);
