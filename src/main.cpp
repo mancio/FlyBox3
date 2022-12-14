@@ -37,6 +37,7 @@ bool log_active = true;
 void setup() {
     setLed();
     j.setAxesRange(OUT_MIN, OUT_MAX);
+    j.testJoy();
     setPinMux();
     setButtonSIG(bArrayM1, bArrayM2, SIG_M1, SIG_M2);
     setCursor();

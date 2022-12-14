@@ -61,6 +61,15 @@ void Joy::setAxesRange(int out_min, int out_max) {
     }
 }
 
+void Joy::testJoy() const {
+    Serial.println("Testing Joystick.....");
+    if(_out_min == 0 && _out_max == IN_MAX){
+        Serial.println("Please check values mapping they might be not initialized yet");
+    }
+    if(_type == DCS) Serial.println("Joy is configured for DCS");
+    else Serial.println("Configuration not found please check");
+}
+
 long Joy::setAxis(int name, int pin, bool direction, bool type) {
     long val = analogRead(pin);
     long mapped = mapValue(val, direction, type);
@@ -72,7 +81,7 @@ long Joy::setAxis(int name, int pin, bool direction, bool type) {
     return mapped;
 }
 
-long Joy::mapValue(long value, bool direction, bool type) {
+long Joy::mapValue(long value, bool direction, bool type) const {
     if(type){
         if(direction) return map(value, 0, IN_MAX, _out_min, _out_max);
         else return map(value, 0, IN_MAX, _out_max, _out_min);

@@ -40,9 +40,9 @@ class Joy{
     private:
         Joystick_ *newJoy = nullptr; /*!< Pointer to new Joystick element */
         int _type; /*!< Joystick type selected */
-        int _out_min;
-        int _out_max;
-        long mapValue(long value, bool direction, bool type);
+        int _out_min = 0;
+        int _out_max = IN_MAX;
+        long mapValue(long value, bool direction, bool type) const;
     public:
         /**
          * Initialize the Joystick
@@ -61,6 +61,8 @@ class Joy{
         long setAxis(int name, int pin, bool direction, bool type);
 
         Joystick_ * getJoy();
+
+        void testJoy() const;
 };
 
 
