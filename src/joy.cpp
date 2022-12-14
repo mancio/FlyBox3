@@ -62,12 +62,14 @@ void Joy::setAxesRange(int out_min, int out_max) {
 }
 
 void Joy::testJoy() const {
-    Serial.println("Testing Joystick.....");
-    if(_out_min == 0 && _out_max == IN_MAX){
-        Serial.println("Please check values mapping they might be not initialized yet");
+    while (!Serial){
+        Serial.println("Testing Joystick.....");
+        if(_out_min == 0 && _out_max == IN_MAX){
+            Serial.println("Please check values mapping they might be not initialized yet");
+        }
+        if(_type == DCS) Serial.println("Joy is configured for DCS");
+        else Serial.println("Configuration not found please check");
     }
-    if(_type == DCS) Serial.println("Joy is configured for DCS");
-    else Serial.println("Configuration not found please check");
 }
 
 long Joy::setAxis(int name, int pin, bool direction, bool type) {

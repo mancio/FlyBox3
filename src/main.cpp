@@ -32,7 +32,7 @@ Button bArrayM1[TOT_BUTTONS_MUX];
 Button bArrayM2[TOT_BUTTONS_MUX];
 
 long axes_values[AXES_NUMBER];
-bool log_active = true;
+bool log_active = false;
 
 void setup() {
     setLed();
