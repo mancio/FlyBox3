@@ -18,33 +18,18 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <bt.h>
-#include <Arduino.h>
+#ifndef FLYBOX3_PUSHBUTTON_H
+#define FLYBOX3_PUSHBUTTON_H
 
-Button::Button() {
-    last_state = HIGH;
-    state = HIGH;
-    _pin = 0;
-}
+#endif //FLYBOX3_PUSHBUTTON_H
 
-int Button::debounce(long delay){
-    state = digitalRead(_pin);
-    last_state = state;
-    if(T.TimerIsExpired(delay)){
-        T.updateTimer();
-        if (state == LOW) return BUTTON_PRESSED;
-        else return BUTTON_RELEASED;
-    }
-    return last_state;
-}
+#include "../.pio/libdeps/leonardo/Joystick/src/Joystick.h"
 
-void Button::setInputPin(int pin){
-    _pin = pin;
-}
 
-void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2){
-    for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
-        btArray1[i].setInputPin(sig1);
-        btArray2[i].setInputPin(sig2);
-    }
-}
+class PushButton {
+    private:
+        Joystick_ *newJoy = nullptr; /*!< Pointer to new Joystick element */
+    public:
+        explicit PushButton(Joystick_ * joy);
+        int push(int bt);
+};

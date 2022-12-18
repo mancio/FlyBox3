@@ -25,7 +25,7 @@ Mux::Mux(Joystick_ * J, int s0, int s1, int s2, int s3){
     newJoy = J;
 }
 
-int *Mux::readMux(Button *btArray, int type) {
+int * Mux::readMux(Button *btArray, int type) {
     static int stateArray[TOT_BUTTONS_MUX];
     for (int i = 0; i < TOT_BUTTONS_MUX; i++) {
         if(newMux != nullptr) newMux->channel(i);

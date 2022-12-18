@@ -27,7 +27,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define IN_MAX 1024
 #define OUT_MIN (-101)
 #define OUT_MAX 101
-#define ZERO_AT_START false
+#define ZERO_NOT_AT_CENTER false
 #define ZERO_AT_CENTER true
 #define X 0
 #define Y 1
@@ -42,6 +42,8 @@ class Joy{
         int _type; /*!< Joystick type selected */
         int _out_min = 0;
         int _out_max = IN_MAX;
+        int tested = 1;
+        int axes = 2;
         long mapValue(long value, bool direction, bool type) const;
     public:
         /**
@@ -62,7 +64,7 @@ class Joy{
 
         Joystick_ * getJoy();
 
-        void testJoy() const;
+        void testJoy();
 };
 
 

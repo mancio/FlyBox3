@@ -27,17 +27,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define H_JOY A2 /*!< joystick horizontal movement */
 #define V_JOY A3 /*!< joystick vertical movement */
 
-#define S0_M1 5 /*!< first multiplexer S0 pin */
-#define S1_M1 6 /*!< first multiplexer S1 pin */
-#define S2_M1 7 /*!< first multiplexer S2 pin */
-#define S3_M1 8 /*!< first multiplexer S8 pin */
-#define SIG_M1 9 /*!< first multiplexer SIG pin */
+#define S0_M1 0 /*!< first multiplexer S0 pin */
+#define S1_M1 1 /*!< first multiplexer S1 pin */
+#define S2_M1 2 /*!< first multiplexer S2 pin */
+#define S3_M1 3 /*!< first multiplexer S8 pin */
+#define SIG_M1 4 /*!< first multiplexer SIG pin */
 
-#define S0_M2 0 /*!< second multiplexer S0 pin */
-#define S1_M2 1 /*!< second multiplexer S1 pin */
-#define S2_M2 2 /*!< second multiplexer S2 pin */
-#define S3_M2 3 /*!< second multiplexer S3 pin */
-#define SIG_M2 4 /*!< second multiplexer SIG pin */
+#define S0_M2 5 /*!< second multiplexer S0 pin */
+#define S1_M2 6 /*!< second multiplexer S1 pin */
+#define S2_M2 7 /*!< second multiplexer S2 pin */
+#define S3_M2 8 /*!< second multiplexer S3 pin */
+#define SIG_M2 9 /*!< second multiplexer SIG pin */
 
 #define AXES_NUMBER 3 /*!< total number of axes */
 

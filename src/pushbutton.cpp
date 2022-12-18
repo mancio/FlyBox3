@@ -18,33 +18,12 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <bt.h>
-#include <Arduino.h>
+#include "pushbutton.h"
 
-Button::Button() {
-    last_state = HIGH;
-    state = HIGH;
-    _pin = 0;
+PushButton::PushButton(Joystick_ * joy) {
+    newJoy = joy;
 }
 
-int Button::debounce(long delay){
-    state = digitalRead(_pin);
-    last_state = state;
-    if(T.TimerIsExpired(delay)){
-        T.updateTimer();
-        if (state == LOW) return BUTTON_PRESSED;
-        else return BUTTON_RELEASED;
-    }
-    return last_state;
-}
+int PushButton::push(int bt) {
 
-void Button::setInputPin(int pin){
-    _pin = pin;
-}
-
-void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2){
-    for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
-        btArray1[i].setInputPin(sig1);
-        btArray2[i].setInputPin(sig2);
-    }
 }

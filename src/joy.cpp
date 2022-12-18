@@ -26,7 +26,7 @@ Joy::Joy(int type) {
         newJoy = new Joystick_(
                 JOYSTICK_DEFAULT_REPORT_ID, // joystick ID
                 JOYSTICK_TYPE_JOYSTICK, // device type
-                32, // buttons number starting from zero
+                32,
                 0, // hotswitch count
                 true, // X axis
                 true, // Y axis
@@ -50,10 +50,10 @@ Joystick_ * Joy::getJoy(){
 void Joy::setAxesRange(int out_min, int out_max) {
     _out_min = out_min;
     _out_max = out_max;
-    int axes = 2;
     if(_type == DCS) axes = 3;
     for (int i = 1; i <= axes; ++i) {
         if(newJoy != nullptr){
+            newJoy->begin();
             if(i == 1) newJoy->setXAxisRange(_out_min, _out_max);
             if(i == 2) newJoy->setYAxisRange(_out_min, _out_max);
             if(i == 3) newJoy->setZAxisRange(_out_min, _out_max);
@@ -61,15 +61,17 @@ void Joy::setAxesRange(int out_min, int out_max) {
     }
 }
 
-void Joy::testJoy() const {
-    while (!Serial){
+void Joy::testJoy() {
+    if(Serial && tested){
         Serial.println("Testing Joystick.....");
         if(_out_min == 0 && _out_max == IN_MAX){
             Serial.println("Please check values mapping they might be not initialized yet");
         }
         if(_type == DCS) Serial.println("Joy is configured for DCS");
         else Serial.println("Configuration not found please check");
+        tested = tested - 1;
     }
+
 }
 
 long Joy::setAxis(int name, int pin, bool direction, bool type) {

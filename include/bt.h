@@ -45,7 +45,7 @@ class Button {
          * Set the SIG pin of Arduino
          * @param pin connected to SIG on the Multiplexer
          */
-        void setSIGPin(int pin);
+        void setInputPin(int pin);
 };
 
 void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2);
