@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 Mux::Mux(Joystick_ * J, int s0, int s1, int s2, int s3){
     newMux = new CD74HC4067(s0 ,s1 ,s2 ,s3);
-    newJoy = J;
     pushButton = new PushButton(J);
 }
 
@@ -35,4 +34,14 @@ int * Mux::readMux(Button *btArray) {
         stateArray[i] = bt_in;
     }
     return stateArray;
+}
+
+int* reverseArray(int* arr, int size) {
+    int* reversedArr = new int[size];
+
+    for (int i = 0; i < size; i++) {
+        reversedArr[i] = arr[size - i - 1];
+    }
+
+    return reversedArr;
 }

@@ -29,7 +29,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 class Mux {
     private:
     CD74HC4067 * newMux = nullptr;
-    Joystick_ * newJoy = nullptr;
     PushButton * pushButton = nullptr;
     public:
         Mux(Joystick_ *J, int s0, int s1, int s2, int s3);
@@ -37,5 +36,6 @@ class Mux {
 
 };
 
+int* reverseArray(int* arr, int size);
 
 #endif //FLYBOX3_MUX_H

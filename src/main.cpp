@@ -24,7 +24,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <logger.h>
 #include <bt.h>
 #include <mux.h>
-#include "pushbutton.h"
 
 Joy j(DCS);
 Mux mux1(j.getJoy(), S0_M1, S1_M1, S2_M1, S3_M1);
@@ -46,21 +45,24 @@ int names2[TOT_BUTTONS_MUX] = {
         28, 29, 30, 31
 };
 
+int* reversedArr = reverseArray(names1, TOT_BUTTONS_MUX);
+
 Button PotButton;
-int potPinName = 32;
+int potPinName = 31;
 
 long axes_values[AXES_NUMBER];
-bool log_active = false;
+bool log_active = true;
 
 void setup() {
     setLed();
     j.setAxesRange(OUT_MIN, OUT_MAX);
     setPinMux();
-    setButtonSIG(bArrayM1, bArrayM2, SIG_M1, SIG_M2);
-    setPinNames(bArrayM1, bArrayM2, names1, names2);
-    setPinNames(PotButton, potPinName);
     setCursor();
     setPot();
+    setButtonInput(bArrayM1, bArrayM2, SIG_M1, SIG_M2);
+    setButtonInput(PotButton, BT_JOY);
+    setPinNames(bArrayM1, bArrayM2, reversedArr, names2);
+    setPinNames(PotButton, potPinName);
 }
 
 void loop() {
@@ -68,7 +70,7 @@ void loop() {
 
     axes_values[X] = j.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
     axes_values[Y] = j.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
-    axes_values[Z] = j.setAxis(Z, POT, NORM, ZERO_NOT_AT_CENTER);
+    axes_values[Z] = j.setAxis(Z, POT, NORM, ZERO_AT_CENTER);
 
 
     int * btStateArray1 = mux1.readMux(bArrayM1);

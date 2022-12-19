@@ -27,5 +27,6 @@ PushButton::PushButton(Joystick_ * joy) {
 int PushButton::push(Button bt) {
     int bt_in = bt.debounce(BUTTONS_DEBOUNCE_DELAY);
     if(newJoy != nullptr) newJoy->setButton(bt.getPinName(), bt_in);
+//    if(bt.getPinName() == 31) Serial.println(String(bt.getPinName()) + " " + bt_in);
     return bt_in;
 }

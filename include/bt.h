@@ -54,11 +54,13 @@ class Button {
         void setPinName(int name);
 };
 
-void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2);
+void setButtonInput(Button *btArray1, Button *btArray2, int sig1, int sig2);
 
 void setPinNames(Button *btArray1, Button *btArray2, int names1[], int names2[]);
 
 void setPinNames(Button button, int name);
+
+void setButtonInput(Button bt, int pin);
 
 
 #endif //FLYBOX3_BT_H

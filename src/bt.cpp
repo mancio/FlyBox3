@@ -51,11 +51,15 @@ void Button::setPinName(int name){
     pinName = name;
 }
 
-void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2){
+void setButtonInput(Button *btArray1, Button *btArray2, int sig1, int sig2){
     for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
         btArray1[i].setInputPin(sig1);
         btArray2[i].setInputPin(sig2);
     }
+}
+
+void setButtonInput(Button bt, int pin){
+    bt.setInputPin(pin);
 }
 
 void setPinNames(Button *btArray1, Button *btArray2, int names1[], int names2[]){
