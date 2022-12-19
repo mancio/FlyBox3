@@ -26,10 +26,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define BUTTON_PRESSED 1
 #define BUTTON_RELEASED 0
 #include <timers.h>
+#include <WString.h>
 
 class Button {
     private:
-        int _pin; /*!< Pin to debounce */
+        int inputPin; /*!< Pin to debounce */
+        int pinName;
         int last_state; /*!< Previous reading state */
         int state; /*!< Current reading state */
         Timer T; /*!< Timer for button debounce */
@@ -46,10 +48,17 @@ class Button {
          * @param pin connected to SIG on the Multiplexer
          */
         void setInputPin(int pin);
+
+        int getPinName();
+
+        void setPinName(int name);
 };
 
 void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2);
 
+void setPinNames(Button *btArray1, Button *btArray2, int names1[], int names2[]);
+
+void setPinNames(Button button, int name);
 
 
 #endif //FLYBOX3_BT_H

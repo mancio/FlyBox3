@@ -42,3 +42,13 @@ void logActiveButtons(int *btArray, int arrayNumber) {
         }
     }
 }
+
+void logActiveButtons(int state, int number) {
+    if(state == HIGH){
+        String line = "Button " + String(number) + ": ON";
+        Serial.print(line);
+        Serial.println(" ");
+    }
+}
+
+

@@ -24,11 +24,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Button::Button() {
     last_state = HIGH;
     state = HIGH;
-    _pin = 0;
+    inputPin = 0;
+    pinName = 1;
 }
 
 int Button::debounce(long delay){
-    state = digitalRead(_pin);
+    state = digitalRead(inputPin);
     last_state = state;
     if(T.TimerIsExpired(delay)){
         T.updateTimer();
@@ -39,7 +40,15 @@ int Button::debounce(long delay){
 }
 
 void Button::setInputPin(int pin){
-    _pin = pin;
+    inputPin = pin;
+}
+
+int Button::getPinName(){
+    return pinName;
+}
+
+void Button::setPinName(int name){
+    pinName = name;
 }
 
 void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2){
@@ -47,4 +56,15 @@ void setButtonSIG(Button *btArray1, Button *btArray2, int sig1, int sig2){
         btArray1[i].setInputPin(sig1);
         btArray2[i].setInputPin(sig2);
     }
+}
+
+void setPinNames(Button *btArray1, Button *btArray2, int names1[], int names2[]){
+    for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
+        btArray1[i].setPinName(names1[i]);
+        btArray2[i].setPinName(names2[i]);
+    }
+}
+
+void setPinNames(Button button, int name){
+    button.setPinName(name);
 }

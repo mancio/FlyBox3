@@ -23,17 +23,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Mux::Mux(Joystick_ * J, int s0, int s1, int s2, int s3){
     newMux = new CD74HC4067(s0 ,s1 ,s2 ,s3);
     newJoy = J;
+    pushButton = new PushButton(J);
 }
 
-int * Mux::readMux(Button *btArray, int type) {
+int * Mux::readMux(Button *btArray) {
+    int bt_in;
     static int stateArray[TOT_BUTTONS_MUX];
     for (int i = 0; i < TOT_BUTTONS_MUX; i++) {
         if(newMux != nullptr) newMux->channel(i);
-        int bt_in = btArray[i].debounce(BUTTONS_DEBOUNCE_DELAY);
-        if(newJoy != nullptr) {
-            if (type == NORM) newJoy->setButton(i, bt_in);
-            if (type == REV) newJoy->setButton(TOT_BUTTONS_MUX - 1 - i, bt_in);
-        }
+        if(pushButton != nullptr) bt_in = pushButton->push(btArray[i]);
         stateArray[i] = bt_in;
     }
     return stateArray;

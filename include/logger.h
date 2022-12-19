@@ -31,6 +31,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     void logActiveButtons(int *btArray, int arrayNumber);
 
+    void logActiveButtons(int state, int number);
+
 
 
 #endif //FLYBOX3_LOGGER_H

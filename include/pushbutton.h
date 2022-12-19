@@ -24,12 +24,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #endif //FLYBOX3_PUSHBUTTON_H
 
 #include "../.pio/libdeps/leonardo/Joystick/src/Joystick.h"
+#include "bt.h"
 
 
 class PushButton {
     private:
-        Joystick_ *newJoy = nullptr; /*!< Pointer to new Joystick element */
+        Joystick_ * newJoy = nullptr; /*!< Pointer to new Joystick element */
     public:
         explicit PushButton(Joystick_ * joy);
-        int push(int bt);
+        int push(Button bt);
 };

@@ -24,14 +24,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "../.pio/libdeps/leonardo/CD74HC4067/src/CD74HC4067.h"
 #include "bt.h"
 #include "joy.h"
+#include "pushbutton.h"
 
 class Mux {
     private:
     CD74HC4067 * newMux = nullptr;
     Joystick_ * newJoy = nullptr;
+    PushButton * pushButton = nullptr;
     public:
         Mux(Joystick_ *J, int s0, int s1, int s2, int s3);
-        int *readMux(Button *btArray, int type);
+        int *readMux(Button *btArray);
 
 };
 

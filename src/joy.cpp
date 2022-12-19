@@ -26,7 +26,7 @@ Joy::Joy(int type) {
         newJoy = new Joystick_(
                 JOYSTICK_DEFAULT_REPORT_ID, // joystick ID
                 JOYSTICK_TYPE_JOYSTICK, // device type
-                32,
+                33,
                 0, // hotswitch count
                 true, // X axis
                 true, // Y axis
