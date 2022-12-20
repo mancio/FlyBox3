@@ -28,9 +28,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Joy j(DCS);
 Mux mux1(j.getJoy(), S0_M1, S1_M1, S2_M1, S3_M1);
 Mux mux2(j.getJoy(), S0_M2, S1_M2, S2_M2, S3_M2);
-PushButton PushPot(j.getJoy());
+PushButton PushJoy(j.getJoy());
 Button bArrayM1[TOT_BUTTONS_MUX];
 Button bArrayM2[TOT_BUTTONS_MUX];
+
 int names1[TOT_BUTTONS_MUX] = {
         0, 1, 2, 3,
         4, 5, 6, 7,
@@ -45,13 +46,13 @@ int names2[TOT_BUTTONS_MUX] = {
         28, 29, 30, 31
 };
 
-int* reversedArr = reverseArray(names1, TOT_BUTTONS_MUX);
+int* reversedArr1 = reverseArray(names1, TOT_BUTTONS_MUX);
 
-Button PotButton;
-int potPinName = 31;
+Button JoyButton;
+int joyPinBtName = 0;
 
 long axes_values[AXES_NUMBER];
-bool log_active = true;
+bool log_active = false;
 
 void setup() {
     setLed();
@@ -60,13 +61,13 @@ void setup() {
     setCursor();
     setPot();
     setButtonInput(bArrayM1, bArrayM2, SIG_M1, SIG_M2);
-    setButtonInput(PotButton, BT_JOY);
-    setPinNames(bArrayM1, bArrayM2, reversedArr, names2);
-    setPinNames(PotButton, potPinName);
+    setButtonInput(JoyButton, BT_JOY);
+    setPinNames(bArrayM1, bArrayM2, reversedArr1, names2);
+    setPinNames(JoyButton, joyPinBtName);
 }
 
 void loop() {
-    j.testJoy();
+//    j.testJoy();
 
     axes_values[X] = j.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
     axes_values[Y] = j.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
@@ -76,13 +77,13 @@ void loop() {
     int * btStateArray1 = mux1.readMux(bArrayM1);
     int * btStateArray2 = mux2.readMux(bArrayM2);
 
-    int btPotState = PushPot.push(PotButton);
+    int btJoyState = PushJoy.push(JoyButton);
 
     if(log_active){
         logAxes(axes_values, AXES_NUMBER);
         logActiveButtons(btStateArray1, FIRST_ARRAY);
         logActiveButtons(btStateArray2, SECOND_ARRAY);
-        logActiveButtons(btPotState, potPinName);
+        logActiveButtons(btJoyState, joyPinBtName);
     }
 }
 

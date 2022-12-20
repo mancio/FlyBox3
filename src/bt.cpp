@@ -33,6 +33,9 @@ int Button::debounce(long delay){
     last_state = state;
     if(T.TimerIsExpired(delay)){
         T.updateTimer();
+
+        if(!state) Serial.println(String(pinName) + " " + String(inputPin) + " " + state);
+
         if (state == LOW) return BUTTON_PRESSED;
         else return BUTTON_RELEASED;
     }

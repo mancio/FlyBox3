@@ -30,7 +30,7 @@ int * Mux::readMux(Button *btArray) {
     static int stateArray[TOT_BUTTONS_MUX];
     for (int i = 0; i < TOT_BUTTONS_MUX; i++) {
         if(newMux != nullptr) newMux->channel(i);
-        if(pushButton != nullptr) bt_in = pushButton->push(btArray[i]);
+        if(pushButton != nullptr && btArray[i].getPinName() != 0) bt_in = pushButton->push(btArray[i]);
         stateArray[i] = bt_in;
     }
     return stateArray;

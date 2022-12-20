@@ -53,7 +53,7 @@ void Joy::setAxesRange(int out_min, int out_max) {
     if(_type == DCS) axes = 3;
     for (int i = 1; i <= axes; ++i) {
         if(newJoy != nullptr){
-            newJoy->begin();
+//            newJoy->begin();
             if(i == 1) newJoy->setXAxisRange(_out_min, _out_max);
             if(i == 2) newJoy->setYAxisRange(_out_min, _out_max);
             if(i == 3) newJoy->setZAxisRange(_out_min, _out_max);

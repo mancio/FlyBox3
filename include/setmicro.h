@@ -27,8 +27,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define H_JOY A2 /*!< joystick horizontal movement */
 #define V_JOY A3 /*!< joystick vertical movement */
 
-#define S0_M1 0 /*!< first multiplexer S0 pin */
-#define S1_M1 1 /*!< first multiplexer S1 pin */
+#define S0_M1 1 /*!< first multiplexer S0 pin */
+#define S1_M1 0 /*!< first multiplexer S1 pin */
 #define S2_M1 2 /*!< first multiplexer S2 pin */
 #define S3_M1 3 /*!< first multiplexer S8 pin */
 #define SIG_M1 4 /*!< first multiplexer SIG pin */
