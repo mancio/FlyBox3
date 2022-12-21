@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define FLYBOX3_BT_H
 
 #define TOT_BUTTONS_MUX 16
+#define FORBIDDEN_BUTTON 99
 #define BUTTONS_DEBOUNCE_DELAY 100
 #define BUTTON_PRESSED 1
 #define BUTTON_RELEASED 0
@@ -52,15 +53,14 @@ class Button {
         int getPinName();
 
         void setPinName(int name);
+
+    int getInputPin();
+
+    int getLastState();
 };
 
-void setButtonInput(Button *btArray1, Button *btArray2, int sig1, int sig2);
+void setButtonsInput(Button *btArray1, Button *btArray2, int sig1, int sig2);
 
 void setPinNames(Button *btArray1, Button *btArray2, int names1[], int names2[]);
-
-void setPinNames(Button button, int name);
-
-void setButtonInput(Button bt, int pin);
-
 
 #endif //FLYBOX3_BT_H

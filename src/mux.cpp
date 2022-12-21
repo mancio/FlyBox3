@@ -25,15 +25,11 @@ Mux::Mux(Joystick_ * J, int s0, int s1, int s2, int s3){
     pushButton = new PushButton(J);
 }
 
-int * Mux::readMux(Button *btArray) {
-    int bt_in;
-    static int stateArray[TOT_BUTTONS_MUX];
+void Mux::readMux(Button *btArray) {
     for (int i = 0; i < TOT_BUTTONS_MUX; i++) {
         if(newMux != nullptr) newMux->channel(i);
-        if(pushButton != nullptr && btArray[i].getPinName() != 0) bt_in = pushButton->push(btArray[i]);
-        stateArray[i] = bt_in;
+        if(pushButton != nullptr) pushButton->push(btArray[i]);
     }
-    return stateArray;
 }
 
 int* reverseArray(int* arr, int size) {

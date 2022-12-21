@@ -33,17 +33,22 @@ int Button::debounce(long delay){
     last_state = state;
     if(T.TimerIsExpired(delay)){
         T.updateTimer();
-
-        if(!state) Serial.println(String(pinName) + " " + String(inputPin) + " " + state);
-
         if (state == LOW) return BUTTON_PRESSED;
         else return BUTTON_RELEASED;
     }
     return last_state;
 }
 
+int Button::getLastState(){
+    return last_state;
+}
+
 void Button::setInputPin(int pin){
     inputPin = pin;
+}
+
+int Button::getInputPin(){
+    return inputPin;
 }
 
 int Button::getPinName(){
@@ -54,15 +59,11 @@ void Button::setPinName(int name){
     pinName = name;
 }
 
-void setButtonInput(Button *btArray1, Button *btArray2, int sig1, int sig2){
+void setButtonsInput(Button *btArray1, Button *btArray2, int sig1, int sig2){
     for (int i = 0; i < TOT_BUTTONS_MUX; ++i) {
         btArray1[i].setInputPin(sig1);
         btArray2[i].setInputPin(sig2);
     }
-}
-
-void setButtonInput(Button bt, int pin){
-    bt.setInputPin(pin);
 }
 
 void setPinNames(Button *btArray1, Button *btArray2, int names1[], int names2[]){
@@ -70,8 +71,4 @@ void setPinNames(Button *btArray1, Button *btArray2, int names1[], int names2[])
         btArray1[i].setPinName(names1[i]);
         btArray2[i].setPinName(names2[i]);
     }
-}
-
-void setPinNames(Button button, int name){
-    button.setPinName(name);
 }

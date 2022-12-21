@@ -32,5 +32,5 @@ class PushButton {
         Joystick_ * newJoy = nullptr; /*!< Pointer to new Joystick element */
     public:
         explicit PushButton(Joystick_ * joy);
-        int push(Button bt);
+        void push(Button bt);
 };

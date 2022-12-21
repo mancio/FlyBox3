@@ -60,7 +60,7 @@ class Joy{
          * @param type
          * @return
          */
-        long setAxis(int name, int pin, bool direction, bool type);
+        void setAxis(int name, int pin, bool direction, bool type);
 
         Joystick_ * getJoy();
 

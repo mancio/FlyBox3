@@ -32,7 +32,7 @@ class Mux {
     PushButton * pushButton = nullptr;
     public:
         Mux(Joystick_ *J, int s0, int s1, int s2, int s3);
-        int *readMux(Button *btArray);
+        void readMux(Button *btArray);
 
 };
 

@@ -24,8 +24,7 @@ PushButton::PushButton(Joystick_ * joy) {
     newJoy = joy;
 }
 
-int PushButton::push(Button bt) {
+void PushButton::push(Button bt) {
     int bt_in = bt.debounce(BUTTONS_DEBOUNCE_DELAY);
-    if(newJoy != nullptr) newJoy->setButton(bt.getPinName(), bt_in);
-    return bt_in;
+    if(newJoy != nullptr && bt.getPinName() != FORBIDDEN_BUTTON) newJoy->setButton(bt.getPinName(), bt_in);
 }
