@@ -35,45 +35,41 @@ int names1[TOT_BUTTONS_MUX] = {
         0, 1, 2, 3,
         4, 5, 6, 7,
         8, 9, 10, 11,
-        12, 13, 14, FORBIDDEN_BUTTON
+        12, 13, 14, 15
 };
 
 int names2[TOT_BUTTONS_MUX] = {
         16, 17, 18, 19,
         20, 21, 22, 23,
         24, 25, 26, 27,
-        28, 29, 30, 31
+        28, 29, 30, FORBIDDEN_BUTTON
 };
 
-int* reversedArr1 = reverseArray(names1, TOT_BUTTONS_MUX);
+int* reversedArr2 = reverseArray(names2, TOT_BUTTONS_MUX);
 
 Button JoyButton;
-int joyPinBtName = 15;
+int joyPinBtName = 31;
 
 void setup() {
     setLed();
-    j.setAxesRange(OUT_MIN, OUT_MAX);
+    j.setAxesRange(X, OUT_MIN, OUT_MAX);
+    j.setAxesRange(Y, OUT_MIN, OUT_MAX);
+    j.setAxesRange(Z, OUT_MIN, OUT_MAX);
     setPinMux();
     setCursor();
     setPot();
     JoyButton.setInputPin(BT_JOY);
     JoyButton.setPinName(joyPinBtName);
     setButtonsInput(bArrayM1, bArrayM2, SIG_M1, SIG_M2);
-    setPinNames(bArrayM1, bArrayM2, reversedArr1, names2);
+    setPinNames(bArrayM1, bArrayM2, reversedArr2, names1);
 }
 
 void loop() {
-    j.testJoy();
-
-    j.setAxis(X, H_JOY, NORM, ZERO_AT_CENTER);
-    j.setAxis(Y, V_JOY, NORM, ZERO_AT_CENTER);
-    j.setAxis(Z, POT, NORM, ZERO_AT_CENTER);
-
-
+    j.setAxis(X, H_JOY, NORM);
+    j.setAxis(Y, V_JOY, REV);
+    j.setAxis(Z, POT, NORM);
     mux1.readMux(bArrayM1);
     mux2.readMux(bArrayM2);
-
     PushJoy.push(JoyButton);
-
 }
 

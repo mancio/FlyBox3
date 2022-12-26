@@ -21,7 +21,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <joy.h>
 
 Joy::Joy(int type) {
-    _type = type;
     if(type == DCS){
         newJoy = new Joystick_(
                 JOYSTICK_DEFAULT_REPORT_ID, // joystick ID
@@ -47,36 +46,20 @@ Joystick_ * Joy::getJoy(){
     return newJoy;
 }
 
-void Joy::setAxesRange(int out_min, int out_max) {
+void Joy::setAxesRange(int axis, int out_min, int out_max) {
     _out_min = out_min;
     _out_max = out_max;
-    if(_type == DCS) axes = 3;
-    for (int i = 1; i <= axes; ++i) {
-        if(newJoy != nullptr){
-            newJoy->begin();
-            if(i == 1) newJoy->setXAxisRange(_out_min, _out_max);
-            if(i == 2) newJoy->setYAxisRange(_out_min, _out_max);
-            if(i == 3) newJoy->setZAxisRange(_out_min, _out_max);
-        }
+    if(newJoy != nullptr) {
+        newJoy->begin();
+        if(axis == X) newJoy->setXAxisRange(_out_min, _out_max);
+        if(axis == Y) newJoy->setYAxisRange(_out_min, _out_max);
+        if(axis == Z) newJoy->setZAxisRange(_out_min, _out_max);
     }
 }
 
-void Joy::testJoy() {
-    if(Serial && tested){
-        Serial.println("Testing Joystick.....");
-        if(_out_min == 0 && _out_max == IN_MAX){
-            Serial.println("Please check values mapping they might be not initialized yet");
-        }
-        if(_type == DCS) Serial.println("Joy is configured for DCS");
-        else Serial.println("Configuration not found please check");
-        tested = tested - 1;
-    }
-
-}
-
-void Joy::setAxis(int name, int pin, bool direction, bool type) {
+void Joy::setAxis(int name, int pin, bool direction) {
     long val = analogRead(pin);
-    long mapped = mapValue(val, direction, type);
+    long mapped = mapValue(val, direction);
     if(newJoy != nullptr){
         if(name == X) newJoy->setXAxis(mapped);
         if(name == Y) newJoy->setYAxis(mapped);
@@ -84,12 +67,7 @@ void Joy::setAxis(int name, int pin, bool direction, bool type) {
     }
 }
 
-long Joy::mapValue(long value, bool direction, bool type) const {
-    if(type){
-        if(direction) return map(value, 0, IN_MAX, _out_min, _out_max);
-        else return map(value, 0, IN_MAX, _out_max, _out_min);
-    } else {
-        if(direction) return map(value, 0, IN_MAX, 0, _out_max);
-        else return map(value, 0, IN_MAX, _out_max, 0);
-    }
+long Joy::mapValue(long value, bool direction) const {
+    if(direction) return map(value, 0, IN_MAX, _out_min, _out_max);
+    else return map(value, 0, IN_MAX, _out_max, _out_min);
 }

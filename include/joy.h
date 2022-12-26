@@ -25,10 +25,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "bt.h"
 
 #define IN_MAX 1024
-#define OUT_MIN (-101)
-#define OUT_MAX 101
-#define ZERO_NOT_AT_CENTER false
-#define ZERO_AT_CENTER true
+#define OUT_MIN (-341)
+#define OUT_MAX 341
 #define X 0
 #define Y 1
 #define Z 2
@@ -39,19 +37,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 class Joy{
     private:
         Joystick_ *newJoy = nullptr; /*!< Pointer to new Joystick element */
-        int _type; /*!< Joystick type selected */
         int _out_min = 0;
         int _out_max = IN_MAX;
-        int tested = 1;
-        int axes = 2;
-        long mapValue(long value, bool direction, bool type) const;
+        long mapValue(long value, bool direction) const;
     public:
         /**
          * Initialize the Joystick
          * @param type Use "DCS" for a 3 axis 32 buttons Joystick
          */
         explicit Joy(int type);
-        void setAxesRange(int out_min, int out_max); /*!< Set the axes scale using the Arduino map function */
+        void setAxesRange(int axis, int out_min, int out_max); /*!< Set the axes scale using the Arduino map function */
         /**
          *
          * @param name
@@ -60,11 +55,9 @@ class Joy{
          * @param type
          * @return
          */
-        void setAxis(int name, int pin, bool direction, bool type);
+        void setAxis(int name, int pin, bool direction);
 
         Joystick_ * getJoy();
-
-        void testJoy();
 };
 
 
