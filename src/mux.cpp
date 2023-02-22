@@ -18,7 +18,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <mux.h>
+#include "mux.h"
 
 Mux::Mux(Joystick_ * J, int s0, int s1, int s2, int s3){
     newMux = new CD74HC4067(s0 ,s1 ,s2 ,s3);

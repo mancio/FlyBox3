@@ -26,8 +26,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define BUTTONS_DEBOUNCE_DELAY 100
 #define BUTTON_PRESSED 1
 #define BUTTON_RELEASED 0
-#include <timers.h>
-#include <WString.h>
+#include "timers.h"
+#include "WString.h"
 
 class Button {
     private:

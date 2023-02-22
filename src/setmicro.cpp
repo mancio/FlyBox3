@@ -20,8 +20,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // Arduino general settings
 
-#include <Arduino.h>
-#include <setmicro.h>
+#include "Arduino.h"
+#include "setmicro.h"
 
 void setLed(){
     // disable TXLED and RXLED (TXLED is always on if the USB is tranmitting data)

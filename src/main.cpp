@@ -18,11 +18,11 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <Arduino.h>
-#include <setmicro.h>
-#include <joy.h>
-#include <bt.h>
-#include <mux.h>
+#include "Arduino.h"
+#include "setmicro.h"
+#include "joy.h"
+#include "bt.h"
+#include "mux.h"
 
 Joy j(DCS);
 Mux mux1(j.getJoy(), S0_M1, S1_M1, S2_M1, S3_M1);

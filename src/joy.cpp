@@ -18,7 +18,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <joy.h>
+#include "joy.h"
 
 Joy::Joy(int type) {
     if(type == DCS){
@@ -61,13 +61,28 @@ void Joy::setAxis(int name, int pin, bool direction) {
     long val = analogRead(pin);
     long mapped = mapValue(val, direction);
     if(newJoy != nullptr){
-        if(name == X) newJoy->setXAxis(mapped);
+        if(name == X) {
+            newJoy->setXAxis(mapped);
+//            Serial.println(mapped);
+        }
         if(name == Y) newJoy->setYAxis(mapped);
-        if(name == Z) newJoy->setZAxis(mapped);
+        if(name == Z) {
+            newJoy->setZAxis(mapped);
+            Serial.println(mapped);
+        }
     }
 }
 
-long Joy::mapValue(long value, bool direction) const {
+long Joy::mapValue(long value, bool direction){
     if(direction) return map(value, 0, IN_MAX, _out_min, _out_max);
     else return map(value, 0, IN_MAX, _out_max, _out_min);
+}
+
+long Joy::antiNoise(long value, int axis){
+    long val = 0;
+    if (axis == 0 && abs(value-xVal) < NOISE_THRESHOLD){
+        return xVal;
+    } else {
+
+    }
 }

@@ -25,8 +25,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "bt.h"
 
 #define IN_MAX 1024
-#define OUT_MIN (-341)
-#define OUT_MAX 341
+//#define OUT_MIN (-341)
+//#define OUT_MAX 341
+#define OUT_MIN (-200)
+#define OUT_MAX 200
+#define NOISE_THRESHOLD 1
 #define X 0
 #define Y 1
 #define Z 2
@@ -39,8 +42,12 @@ class Joy{
         Joystick_ *newJoy = nullptr; /*!< Pointer to new Joystick element */
         int _out_min = 0;
         int _out_max = IN_MAX;
-        long mapValue(long value, bool direction) const;
-    public:
+        long xVal = 0;
+        long yVal = 0;
+        long zVal = 0;
+        long mapValue(long value, bool direction);
+
+public:
         /**
          * Initialize the Joystick
          * @param type Use "DCS" for a 3 axis 32 buttons Joystick
@@ -58,6 +65,10 @@ class Joy{
         void setAxis(int name, int pin, bool direction);
 
         Joystick_ * getJoy();
+
+    long antiNoise(long value);
+
+    long antiNoise(long value, int axis);
 };
 
 
