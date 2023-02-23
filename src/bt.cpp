@@ -39,16 +39,8 @@ int Button::debounce(long delay){
     return last_state;
 }
 
-int Button::getLastState(){
-    return last_state;
-}
-
 void Button::setInputPin(int pin){
     inputPin = pin;
-}
-
-int Button::getInputPin(){
-    return inputPin;
 }
 
 int Button::getPinName(){

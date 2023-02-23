@@ -27,9 +27,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define IN_MAX 1024
 //#define OUT_MIN (-341)
 //#define OUT_MAX 341
-#define OUT_MIN (-200)
-#define OUT_MAX 200
-#define NOISE_THRESHOLD 1
+#define OUT_MIN (-1000)
+#define OUT_MAX 1000
+#define HIGH_NOISE_THRESHOLD 54
+#define LOW_NOISE_THRESHOLD 10
 #define X 0
 #define Y 1
 #define Z 2
@@ -46,6 +47,7 @@ class Joy{
         long yVal = 0;
         long zVal = 0;
         long mapValue(long value, bool direction);
+        long antiNoise(long value, int axis);
 
 public:
         /**
@@ -66,9 +68,6 @@ public:
 
         Joystick_ * getJoy();
 
-    long antiNoise(long value);
-
-    long antiNoise(long value, int axis);
 };
 
 

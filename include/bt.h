@@ -54,9 +54,6 @@ class Button {
 
         void setPinName(int name);
 
-    int getInputPin();
-
-    int getLastState();
 };
 
 void setButtonsInput(Button *btArray1, Button *btArray2, int sig1, int sig2);

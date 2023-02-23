@@ -62,13 +62,19 @@ void Joy::setAxis(int name, int pin, bool direction) {
     long mapped = mapValue(val, direction);
     if(newJoy != nullptr){
         if(name == X) {
-            newJoy->setXAxis(mapped);
-//            Serial.println(mapped);
+            long a = antiNoise(mapped, X);
+//            Serial.println(a);
+            newJoy->setXAxis(a);
         }
-        if(name == Y) newJoy->setYAxis(mapped);
+        if(name == Y) {
+            long a = antiNoise(mapped, Y);
+//            Serial.println(a);
+            newJoy->setYAxis(a);
+        }
         if(name == Z) {
-            newJoy->setZAxis(mapped);
-            Serial.println(mapped);
+            long a = antiNoise(mapped, Z);
+//            Serial.println(a);
+            newJoy->setZAxis(a);
         }
     }
 }
@@ -79,10 +85,38 @@ long Joy::mapValue(long value, bool direction){
 }
 
 long Joy::antiNoise(long value, int axis){
-    long val = 0;
-    if (axis == 0 && abs(value-xVal) < NOISE_THRESHOLD){
-        return xVal;
-    } else {
-
+    if(axis == 0){
+        if(value >= -HIGH_NOISE_THRESHOLD && value < HIGH_NOISE_THRESHOLD) return 0;
+        if(value >= _out_max - LOW_NOISE_THRESHOLD) return _out_max;
+        if(value <= _out_min + LOW_NOISE_THRESHOLD) return _out_min;
+        if (abs(value-xVal) <= LOW_NOISE_THRESHOLD){
+            return xVal;
+        } else {
+            xVal = value;
+        }
     }
+    if(axis == 1){
+        if(value >= -HIGH_NOISE_THRESHOLD && value < HIGH_NOISE_THRESHOLD) return 0;
+        if(value >= _out_max - LOW_NOISE_THRESHOLD) return _out_max;
+        if(value <= _out_min + LOW_NOISE_THRESHOLD) return _out_min;
+        if (abs(value-yVal) <= LOW_NOISE_THRESHOLD){
+            return yVal;
+        } else {
+            yVal = value;
+        }
+    }
+    if(axis == 2){
+        if(value >= -LOW_NOISE_THRESHOLD && value < LOW_NOISE_THRESHOLD) return 0;
+        if(value >= _out_max - LOW_NOISE_THRESHOLD) return _out_max;
+        if(value <= _out_min + LOW_NOISE_THRESHOLD) return _out_min;
+        if (abs(value-zVal) <= LOW_NOISE_THRESHOLD){
+//            Serial.println(String(abs(value-zVal)) + "<=" + HIGH_NOISE_THRESHOLD);
+            return zVal;
+        } else {
+//            Serial.println(String(abs(value-zVal)) + ">=" + HIGH_NOISE_THRESHOLD);
+//            Serial.println("value " + String(value) + " and zVal " + String(zVal));
+            zVal = value;
+        }
+    }
+    return value;
 }
